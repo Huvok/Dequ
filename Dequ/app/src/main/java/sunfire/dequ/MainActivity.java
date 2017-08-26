@@ -314,7 +314,7 @@ public class MainActivity
                 final Bitmap bmp = (Bitmap) bundle.get("data");
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                bmp.compress(Bitmap.CompressFormat.JPEG, 30, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
             }
@@ -328,7 +328,7 @@ public class MainActivity
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                bmp.compress(Bitmap.CompressFormat.JPEG, 30, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
             }
@@ -750,7 +750,7 @@ public class MainActivity
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
 
-        new RESTGetTask("Report", "http://" + getString(R.string.server_url) + "/api/reports?id=" +
+        new RESTGetTask("Report", "http://" + getString(R.string.server_url) + "/api/report?id=" +
             marker.getTag(), null, map).execute();
     }
 
