@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fb="http://schemas.android.com/apk/res-auto"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              tools:ignore="NestedWeights"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="sunfire.dequ.MainActivity"
+              android:id="@+id/viewMainActivity"
+              android:weightSum="1">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:orientation="vertical"
+                  tools:context="sunfire.dequ.MainActivity"
+                  android:layout_weight=".07"
+                  android:weightSum="1">
+
+        <TextView
+            android:id="@+id/txtViewReportInfoName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Event" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:orientation="horizontal"
+                  tools:context="sunfire.dequ.MainActivity"
+                  android:layout_weight="0.3"
+                  android:weightSum="1">
+
+        <TextView
+            android:id="@+id/txtViewReportInfoDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Description" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight=".53">
+
+        <ImageView
+            android:id="@+id/imgViewReport"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.40"
+            app:srcCompat="@android:drawable/btn_star" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:orientation="horizontal"
+                  tools:context="sunfire.dequ.MainActivity"
+                  android:layout_weight=".1"
+                  android:weightSum="1">
+
+        <Button
+            android:id="@+id/btnCancelFbEvent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:text="@string/btn_cancel_event"/>
+
+        <Button
+            android:id="@+id/btnCreateFbEvent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:text="@string/btn_create_event"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+{
+  "name": "dequ-rest-server",
+  "version": "1.0.0",
+  "description": "REST API for Dequ.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  	"express": "*",
+  	"body-parser": "*",
+    "mongoose": "4.10.8",
+    "bcrypt": "*",
+    "jwt-simple": "*",
+    "morgan": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "Hugo Garcia",
+  "license": "ISC"
+}

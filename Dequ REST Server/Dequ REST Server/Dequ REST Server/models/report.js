@@ -1,0 +1,74 @@
+var mongoose = require('mongoose');
+
+// Report Schema
+var reportSchema = mongoose.Schema({
+    user_id: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+	type: {
+		type: String, 
+		required: true
+	},
+	level: {
+		type: Number,
+		required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    latitude: {
+        type: Number,
+        required: true
+    },
+    longitude: {
+        type: Number,
+        required: true
+    },
+	create_date: {
+		type: Date,
+		default: Date.now
+	}
+});
+
+var Report = module.exports = mongoose.model('Report', reportSchema);
+
+// Get Reports
+module.exports.getReports = function(callback, limit) {
+	Report.find(callback).limit(limit);
+}
+
+// Get Report by ID
+module.exports.getReportById = function(id, callback) {
+	Report.findById(id, callback);
+}
+
+// Add Report
+module.exports.addReport = function(report, callback) {
+	Report.create(report, callback);
+}
+
+// Update Report
+module.exports.updateReport = function(id, report, options, callback) {
+	var query = {_id: id};
+	var update = {
+		type: report.type,
+		level: report.level,
+        description: report.description,
+        latitude: report.latitude,
+        longitude: report.longitude
+	}
+	
+	Report.findOneAndUpdate(query, update, options, callback);
+}
+
+// Delete Report
+module.exports.removeReport = function(id, callback) {
+	var query = {_id: id};
+	Report.remove(query, callback);
+}
