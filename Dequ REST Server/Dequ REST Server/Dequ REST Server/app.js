@@ -136,6 +136,7 @@ app.get('/api/report', function (req, res) {
             response.latitude = report.latitude;
             response.longitude = report.longitude;
             response.create_date = report.create_date;
+            response.has_event = report.has_event;
             response.image = new Buffer(fs.readFileSync(__dirname + "/uploads/" + report._id + ".jpg")).toString('base64');
 			res.json(response);
 		}
