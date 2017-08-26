@@ -30,6 +30,10 @@ var reportSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    has_event: {
+        type: Boolean,
+        default: false
+    },
 	create_date: {
 		type: Date,
 		default: Date.now
@@ -61,7 +65,8 @@ module.exports.updateReport = function(id, report, options, callback) {
 		level: report.level,
         description: report.description,
         latitude: report.latitude,
-        longitude: report.longitude
+        longitude: report.longitude,
+        has_event: report.has_event
 	}
 	
 	Report.findOneAndUpdate(query, update, options, callback);

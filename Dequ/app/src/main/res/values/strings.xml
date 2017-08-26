@@ -10,7 +10,7 @@
     <string name="user_name">User Name</string>
     <string name="user_level">User Level</string>
     <string name="events">Events</string>
-    <string name="profile">My Profile</string>
+    <string name="profile">Profile</string>
     <string name="change_language_button">Change Language</string>
     <string name="logout_button">Logout</string>
     <string name="create_report">Report</string>
@@ -26,7 +26,7 @@
     <string name="cancel_button">Cancel</string>
     <string name="server_url">10.12.211.246:3000</string>
     <string name="btn_cancel_event">Cancel</string>
-    <string name="btn_create_event">Create Event</string>
+    <string name="btn_create_event">Event</string>
     <string-array name="report_type">
         <item>Garbage</item>
         <item>Nature</item>

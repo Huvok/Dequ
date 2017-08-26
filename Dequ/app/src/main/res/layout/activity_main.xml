@@ -156,12 +156,7 @@
             android:layout_weight=".25"
             android:text="@string/create_report"
             android:drawableTop="@drawable/ic_error_black_24px"
-            android:textSize="10dp"
-
-
-        />
-
-
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/btnCreateEvent"
@@ -169,7 +164,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".25"
             android:text="@string/create_event"
-            android:textSize="10dp"
+            android:textSize="12sp"
             android:drawableTop="@drawable/ic_assignment_black_24px"
             />
 
@@ -179,7 +174,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".25"
             android:text="@string/profile"
-            android:textSize="10dp"
+            android:textSize="12sp"
             android:drawableTop="@drawable/ic_person_black_24px"/>
 
         <Button
@@ -187,7 +182,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
-            android:textSize="10dp"
+            android:textSize="12sp"
             android:drawableTop="@drawable/ic_location_on_black_36px"
             android:text="Toggle "/>
 
