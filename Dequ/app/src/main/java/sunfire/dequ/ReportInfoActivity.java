@@ -87,6 +87,8 @@ public class ReportInfoActivity
     Button btnSelectHour;
     Button btnCancelEventOnApp;
     Button btnCreateEventOnApp;
+    Button btnJoinEvent;
+    boolean boolHasEvent;
     //Fecha y hora del evento
     static int year, month, day, hour, minute;
 
@@ -107,11 +109,20 @@ public class ReportInfoActivity
         txtLevel = (TextView) findViewById(R.id.txtViewReportInfoLevel);
         btnCancelEvent = (Button) findViewById(R.id.btnCancelFbEvent);
         btnCreateEvent = (Button) findViewById(R.id.btnCreateFbEvent);
+        btnJoinEvent = (Button) findViewById(R.id.btnJoinEvent);
         imgReport = (ImageView) findViewById(R.id.imgViewReport);
         //Asignar valor del intent, no estoy seguro del textView
         txtName.setText((String)bundle.get("title"));
         txtType.setText((String)bundle.get("type"));
         txtLevel.setText((String)bundle.get("level"));
+        if (bundle.get("has_event").toString().equals("true"))
+        {
+            btnCreateEvent.setEnabled(false);
+        }
+        else
+        {
+            btnJoinEvent.setEnabled(false);
+        }
         txtDescription.setText((String)bundle.get("description"));
         decodedString = Base64.decode( (String) bundle.get("image"), Base64.NO_WRAP);
         InputStream inputStream = new ByteArrayInputStream(decodedString);
@@ -231,7 +242,8 @@ public class ReportInfoActivity
 
         } else if (view.getId() == R.id.btnCreateOnAppEvent) {
             //Subir la info al servidor
-        } else if (view.getId() == R.id.btnCancelOnAppEvent) {
+        }
+        else if(view.getId() == R.id.btnCancelOnAppEvent){
             alertDialog.dismiss();
         } else if (view.getId() == R.id.btnHour) {
             //Seleccionar hora

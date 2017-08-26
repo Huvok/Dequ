@@ -870,6 +870,7 @@ public class MainActivity
                     intent.putExtra("level", jsonObject.getString("level"));
                     intent.putExtra("image", jsonObject.getString("image"));
                     intent.putExtra("description", jsonObject.getString("description"));
+                    intent.putExtra("has_event", jsonObject.getString("has_event"));
 
                     startActivity(intent);
                 } catch (JSONException e) {
