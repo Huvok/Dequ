@@ -18,10 +18,10 @@
     <string name="place_report">Place Report</string>
     <string name="hint_description">Description</string>
     <string name="report_dialog_title">Report Information</string>
-    <string name="report_type_text_view">Report Type</string>
-    <string name="report_level_text_view">Report Level</string>
-    <string name="take_photo_button">Take photo for evidence</string>
-    <string name="report_title_text">Report Title:</string>
+    <string name="report_type_text_view">Type</string>
+    <string name="report_level_text_view">Level</string>
+    <string name="take_photo_button">Add photo </string>
+    <string name="report_title_text"> Title:</string>
     <string name="report_title_hint">Report</string>
     <string name="cancel_button">Cancel</string>
     <string name="server_url">10.12.211.246:3000</string>

@@ -19,7 +19,8 @@
                   android:orientation="vertical"
                   tools:context="sunfire.dequ.MainActivity"
                   android:layout_weight=".13"
-                  android:weightSum="1">
+                  android:weightSum="1"
+                    android:background="@color/emeraldColor">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,27 +49,37 @@
                           android:orientation="vertical"
                           tools:context="sunfire.dequ.MainActivity"
                           android:layout_weight=".65"
-                          android:weightSum="1">
+                          android:weightSum="1"
+                >
 
                 <TextView
                     android:id="@+id/txtViewUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="8dp"
                     android:text="@string/user_name"
-                    android:paddingTop="8dp"/>
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    />
 
                 <TextView
                     android:id="@+id/txtViewUserLevelAndExp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/user_level"/>
+                    android:text="@string/user_level"
+                    android:textSize="15dp"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progressBarExp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    />
 
             </LinearLayout>
 
@@ -76,9 +87,10 @@
                 android:id="@+id/imgBtnSettings"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_settings_black_24dp"
+                app:srcCompat="@drawable/ic_view_headline_black_24px"
                 android:layout_weight=".15"
-                android:contentDescription="@string/profile_picture_content_description"/>
+                android:contentDescription="@string/profile_picture_content_description"
+                android:background="@color/emeraldColor"/>
 
         </LinearLayout>
 
@@ -133,34 +145,52 @@
                   android:orientation="horizontal"
                   tools:context="sunfire.dequ.MainActivity"
                   android:layout_weight=".10"
-                  android:weightSum="1">
+                  android:weightSum="1"
+        android:background="@color/emeraldColor">
+
 
         <Button
             android:id="@+id/btnReport"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
-            android:text="@string/create_report"/>
+            android:text="@string/create_report"
+            android:drawableTop="@drawable/ic_error_black_24px"
+            android:textSize="10dp"
+
+
+        />
+
+
 
         <Button
             android:id="@+id/btnCreateEvent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
-            android:text="@string/create_event"/>
+            android:text="@string/create_event"
+            android:textSize="10dp"
+            android:drawableTop="@drawable/ic_assignment_black_24px"
+            />
 
         <Button
             android:id="@+id/btnMyProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
-            android:text="@string/profile"/>
+            android:text="@string/profile"
+            android:textSize="10dp"
+            android:drawableTop="@drawable/ic_person_black_24px"/>
 
         <Button
             android:id="@+id/btnOnOffMarkers"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".25"/>
+            android:layout_weight=".25"
+            android:textSize="10dp"
+            android:drawableTop="@drawable/ic_location_on_black_36px"
+            android:text="Toggle "/>
+
 
     </LinearLayout>
 

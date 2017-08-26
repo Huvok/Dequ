@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.facebook.*;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import java.util.Arrays;
 
 //                                                          //AUTHOR: Hugo García
 //                                                          //CO-AUTHOR:

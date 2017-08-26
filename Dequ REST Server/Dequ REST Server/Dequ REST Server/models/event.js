@@ -7,6 +7,10 @@ var eventSchema = mongoose.Schema({
         unique: true,
         required: true
     },
+    user_id: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
