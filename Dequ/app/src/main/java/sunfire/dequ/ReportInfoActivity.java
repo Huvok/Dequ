@@ -1,8 +1,13 @@
 package sunfire.dequ;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -12,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class ReportInfoActivity
@@ -72,6 +79,34 @@ public class ReportInfoActivity
         }
         //Crear evento de fb
         else if(view.getId() == R.id.btnCreateFbEvent){
+            final CharSequence[] items = {"Create event from app", "Create event on Facebook",
+                "Link to a Facebook event", "Cancel"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ReportInfoActivity.this);
+            builder.setTitle("How will you create the event?");
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    dialogInterface.dismiss();
+
+                    if (items[i].equals("Create event from app"))
+                    {
+
+                    }
+                    else if (items[i].equals("Create event on Facebook"))
+                    {
+
+                    }
+                    else if (items[i].equals("Link to a Facebook event"))
+                    {
+
+                    }
+                }
+            });
+
+            builder.show();
+
 
         }
     }
