@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.util.Calendar;
@@ -126,24 +128,22 @@ public class ReportInfoActivity
     @Override
     public void onClick(View view) {
         //Si se va a salir, mover al main activity
-        if(view.getId() == R.id.btnCancelFbEvent){
+        if (view.getId() == R.id.btnCancelFbEvent) {
             finish();
         }
         //Crear evento de fb
-        else if(view.getId() == R.id.btnCreateFbEvent){
+        else if (view.getId() == R.id.btnCreateFbEvent) {
             final CharSequence[] items = {"Create event from app", "Create event on Facebook",
-                "Link to a Facebook event", "Cancel"};
+                    "Link to a Facebook event", "Cancel"};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ReportInfoActivity.this);
             builder.setTitle("How will you create the event?");
             builder.setItems(items, new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i)
-                {
+                public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
 
-                    if (items[i].equals("Create event from app"))
-                    {
+                    if (items[i].equals("Create event from app")) {
                         //Saltar al otro layout
                         dialogPlaceEvent = new AlertDialog.Builder(ReportInfoActivity.this);
 
@@ -167,13 +167,10 @@ public class ReportInfoActivity
                         btnSelectDate.setOnClickListener(ReportInfoActivity.this);
 
 
-                    }
-                    else if (items[i].equals("Create event on Facebook"))
-                    {
-
-                    }
-                    else if (items[i].equals("Link to a Facebook event"))
-                    {
+                    } else if (items[i].equals("Create event on Facebook")) {
+                        startActivity(newFacebookIntent(getPackageManager(),
+                                "https://www.facebook.com/events/upcoming?ref=46&action_history=null"));
+                    } else if (items[i].equals("Link to a Facebook event")) {
                         new GraphRequest(
                                 AccessToken.getCurrentAccessToken(),
                                 "/me/events",
@@ -186,25 +183,24 @@ public class ReportInfoActivity
                                             JSONArray jsonArray = jsonObject.getJSONArray("data");
 
                                             final CharSequence[] items = {jsonArray.getJSONObject(0).getString("name"),
-                                                "Cancel"};
+                                                    "Cancel"};
                                             final String name = jsonArray.getJSONObject(0).getString("name");
                                             final String date = jsonArray.getJSONObject(0).getString("start_time");
                                             AlertDialog.Builder builder = new AlertDialog.Builder(ReportInfoActivity.this);
                                             builder.setTitle("Link to Facebook event");
                                             builder.setItems(items, new DialogInterface.OnClickListener() {
                                                 @Override
-                                                public void onClick(DialogInterface dialogInterface, int i)
-                                                {
+                                                public void onClick(DialogInterface dialogInterface, int i) {
                                                     dialogInterface.dismiss();
 
-                                                    if (items[i].equals(items[0]))
-                                                    {
+                                                    if (items[i].equals(items[0])) {
                                                         HashMap<String, String> mapHeaders = new HashMap<String, String>();
                                                         mapHeaders.put("Content-Type", "application/json");
 
                                                         JSONObject jsonObjectNewReport = new JSONObject();
                                                         try {
-                                                            jsonObjectNewReport.put("report", getIntent().getExtras().get("title"));;
+                                                            jsonObjectNewReport.put("report", getIntent().getExtras().get("title"));
+                                                            ;
                                                             jsonObjectNewReport.put("user_id", Profile.getCurrentProfile().getId());
                                                             jsonObjectNewReport.put("title", name);
                                                             jsonObjectNewReport.put("people_needed", 3);
@@ -233,25 +229,34 @@ public class ReportInfoActivity
             builder.show();
 
 
-        }
-        else if(view.getId() == R.id.btnCreateOnAppEvent){
+        } else if (view.getId() == R.id.btnCreateOnAppEvent) {
             //Subir la info al servidor
-        }
-        else if(view.getId() == R.id.btnCancelOnAppEvent){
+        } else if (view.getId() == R.id.btnCancelOnAppEvent) {
             alertDialog.dismiss();
-        }
-        else if(view.getId() == R.id.btnHour){
+        } else if (view.getId() == R.id.btnHour) {
             //Seleccionar hora
             DialogFragment newFragment = new TimePickerFragment();
             newFragment.show(getFragmentManager(), "timePicker");
-        }
-        else if(view.getId() == R.id.btnDate){
+        } else if (view.getId() == R.id.btnDate) {
             //Seleccionar fecha
             DialogFragment newFragment = new DatePickerFragment();
             newFragment.show(getFragmentManager(), "datePicker");
         }
     }
 
+    //==================================================================================================================
+    public static Intent newFacebookIntent(PackageManager pm, String url) {
+        Uri uri = Uri.parse(url);
+        try {
+            ApplicationInfo applicationInfo = pm.getApplicationInfo("com.facebook.katana", 0);
+            if (applicationInfo.enabled) {
+                // http://stackoverflow.com/a/24547437/1048340
+                uri = Uri.parse("fb://facewebmodal/f?href=" + url);
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+        return new Intent(Intent.ACTION_VIEW, uri);
+    }
     //==================================================================================================================
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
