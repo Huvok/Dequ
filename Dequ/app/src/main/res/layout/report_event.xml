@@ -25,7 +25,7 @@
             android:layout_weight=".5"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="@string/edreport_event_titleevent"/>
+            android:hint="@string/edreport_event_title_event"/>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

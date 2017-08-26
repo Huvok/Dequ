@@ -14,7 +14,7 @@
     <string name="change_language_button">Change Language</string>
     <string name="logout_button">Logout</string>
     <string name="create_report">Report</string>
-    <string name="create_event">Create Event</string>
+    <string name="create_event">Event</string>
     <string name="place_report">Place Report</string>
     <string name="hint_description">Description</string>
     <string name="report_dialog_title">Report Information</string>
@@ -26,16 +26,17 @@
     <string name="cancel_button">Cancel</string>
     <string name="server_url">10.12.211.246:3000</string>
     <string name="btn_cancel_event">Cancel</string>
-    <string name="btn_create_event">Event</string>
+    <string name="btn_create_event">Create Event</string>
     <string name="info_report_description">Description</string>
     <string name="info_report_level">Level</string>
     <string name="info_report_type">Type</string>
     <string name="info_report_title">Title</string>
     <string name="report_event_name">Event Title</string>
-    <string name="edreport_event_titleevent">Event</string>
+    <string name="edreport_event_title_event">Event</string>
     <string name="report_event_date_start">Date</string>
     <string name="report_event_hour_start">Time</string>
     <string name="event_dialog_title">Event Information</string>
+    <string name="btn_join_event">Join Event</string>
     <string-array name="report_type">
         <item>Garbage</item>
         <item>Nature</item>
