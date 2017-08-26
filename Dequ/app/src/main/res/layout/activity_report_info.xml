@@ -38,8 +38,48 @@
                   android:layout_height="0dp"
                   android:orientation="horizontal"
                   tools:context="sunfire.dequ.MainActivity"
-                  android:layout_weight="0.3"
+                  android:layout_weight="0.05"
                   android:weightSum="1">
+
+        <TextView
+            android:id="@+id/txtViewReportInfoType"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Type" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        tools:context="sunfire.dequ.MainActivity"
+        android:layout_weight="0.05"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/txtViewReportInfoLevel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Level" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        tools:context="sunfire.dequ.MainActivity"
+        android:layout_weight="0.20"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/txtViewReportInfoDescription"
