@@ -1,7 +1,10 @@
 package sunfire.dequ;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -56,7 +59,8 @@ public class ReportInfoActivity
         extends
         AppCompatActivity
     implements
-        View.OnClickListener
+        View.OnClickListener,
+        TimePickerDialog.OnTimeSetListener
 {
     //Bitmap
     byte[] decodedString;
@@ -233,10 +237,35 @@ public class ReportInfoActivity
             alertDialog.dismiss();
         }
         else if(view.getId() == R.id.btnHour){
-            //Seleccionar la hora
+            DialogFragment newFragment = new TimePickerFragment();
+            newFragment.show(getFragmentManager(), "timePicker");
         }
         else if(view.getId() == R.id.btnDate){
             //Seleccionar fecha
+        }
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        
+    }
+
+    //==================================================================================================================
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int hour = 0;
+            int minute = 0;
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // Do something with the time chosen by the user
         }
     }
 
