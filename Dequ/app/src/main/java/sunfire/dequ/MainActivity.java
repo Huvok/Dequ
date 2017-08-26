@@ -854,7 +854,7 @@ public class MainActivity
                     intent.putExtra("title", jsonObject.getString("title"));
                     intent.putExtra("type", jsonObject.getString("type"));
                     intent.putExtra("level", jsonObject.getString("level"));
-                    intent.putExtra("img", jsonObject.getString("image"));
+                    intent.putExtra("image", jsonObject.getString("image"));
                     intent.putExtra("description", jsonObject.getString("description"));
 
                     startActivity(intent);

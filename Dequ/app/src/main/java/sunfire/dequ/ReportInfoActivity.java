@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 public class ReportInfoActivity
         extends
         AppCompatActivity
@@ -19,7 +22,7 @@ public class ReportInfoActivity
 {
     //Bitmap
     byte[] decodedString;
-    Bitmap decodedByte;
+    Bitmap bitmap;
     //Create objects
     Button btnCreateEvent;
     Button btnCancelEvent;
@@ -45,14 +48,16 @@ public class ReportInfoActivity
         txtLevel = (TextView) findViewById(R.id.txtViewReportInfoLevel);
         btnCancelEvent = (Button) findViewById(R.id.btnCancelFbEvent);
         btnCreateEvent = (Button) findViewById(R.id.btnCreateFbEvent);
+        imgReport = (ImageView) findViewById(R.id.imgViewReport);
         //Asignar valor del intent, no estoy seguro del textView
         txtName.setText((String)bundle.get("title"));
         txtType.setText((String)bundle.get("type"));
         txtLevel.setText((String)bundle.get("level"));
         txtDescription.setText((String)bundle.get("description"));
-        decodedString = Base64.decode( (String) bundle.get("image"), Base64.DEFAULT);
-        decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        imgReport.setImageBitmap(decodedByte);
+        decodedString = Base64.decode( (String) bundle.get("image"), Base64.NO_WRAP);
+        InputStream inputStream = new ByteArrayInputStream(decodedString);
+        bitmap = BitmapFactory.decodeStream(inputStream);
+        imgReport.setImageBitmap(bitmap);
         //Botones
         btnCreateEvent.setOnClickListener(this);
         btnCancelEvent.setOnClickListener(this);
