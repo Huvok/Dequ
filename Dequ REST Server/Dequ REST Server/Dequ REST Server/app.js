@@ -22,6 +22,7 @@ var fs = require("fs");
 //                                                          //INTERNAL DEPENDENCIES
 var User = require('./models/user');
 var Report = require('./models/report');
+var Event = require('./models/event');
 var config = require('./config');
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -199,6 +200,29 @@ app.delete('/api/reports/:_id', function(req, res) {
 			res.json(report);
 		}
 	});
+});
+
+app.get('/api/event', function (req, res) {
+    Event.getEventById(req.query.id, function (err, event) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(event);
+        }
+    });
+});
+
+app.post('/api/event', function (req, res) {
+    var event = req.body;
+    Event.addEvent(event, function (err, event) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(event);
+        }
+    });
 });
 
 app.listen(3000, '0.0.0.0');

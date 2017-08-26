@@ -38,6 +38,9 @@
     <Compile Include="models\authToken.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="models\event.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="models\report.js" />
     <Compile Include="models\user.js" />
     <Compile Include="passport.js">

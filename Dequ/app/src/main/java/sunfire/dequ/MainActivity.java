@@ -328,7 +328,7 @@ public class MainActivity
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                bmp.compress(Bitmap.CompressFormat.JPEG, 30, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
             }
