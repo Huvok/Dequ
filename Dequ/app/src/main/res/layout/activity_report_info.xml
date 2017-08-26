@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Event" />
+            android:text="@string/info_report_title" />
 
     </LinearLayout>
 
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Type" />
+            android:text="@string/info_report_type" />
 
     </LinearLayout>
 
@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Level" />
+            android:text="@string/info_report_level" />
 
     </LinearLayout>
 
@@ -87,7 +87,7 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Description" />
+            android:text="@string/info_report_description" />
 
     </LinearLayout>
 

@@ -6,17 +6,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -44,6 +50,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static android.app.PendingIntent.getActivity;
+
 public class ReportInfoActivity
         extends
         AppCompatActivity
@@ -61,6 +69,19 @@ public class ReportInfoActivity
     TextView txtType;
     TextView txtLevel;
     TextView txtDescription;
+    //Dialogo crear evento
+    AlertDialog.Builder dialogPlaceEvent;
+    AlertDialog alertDialog;
+    View viewEventDialog;
+    EditText edtxtEventTitle;
+    EditText edtxtEventDescription;
+    Button btnSelectDate;
+    Button btnSelectHour;
+    Button btnCancelEventOnApp;
+    Button btnCreateEventOnApp;
+    //Fecha y hora del evento
+    int yearR, monthR, dayR, hourR, minuteR;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -117,6 +138,26 @@ public class ReportInfoActivity
 
                     if (items[i].equals("Create event from app"))
                     {
+                        //Saltar al otro layout
+                        dialogPlaceEvent = new AlertDialog.Builder(ReportInfoActivity.this);
+
+                        viewEventDialog = getLayoutInflater().inflate(R.layout.report_event, null);
+                        dialogPlaceEvent.setView(viewEventDialog).create();
+                        dialogPlaceEvent.setTitle(R.string.event_dialog_title);
+                        alertDialog = dialogPlaceEvent.show();
+
+                        btnCancelEventOnApp = (Button) viewEventDialog.findViewById(R.id.btnCancelOnAppEvent);
+                        btnCreateEventOnApp = (Button) viewEventDialog.findViewById(R.id.btnCreateOnAppEvent);
+                        btnSelectDate = (Button) viewEventDialog.findViewById(R.id.btnDate);
+                        btnSelectHour = (Button) viewEventDialog.findViewById(R.id.btnHour);
+                        edtxtEventDescription = (EditText) viewEventDialog.findViewById(R.id.edTxtDescription);
+                        edtxtEventTitle = (EditText) viewEventDialog.findViewById(R.id.edTxtReportEventTitle);
+
+                        btnCancelEventOnApp.setOnClickListener(ReportInfoActivity.this);
+                        btnCreateEventOnApp.setOnClickListener(ReportInfoActivity.this);
+                        btnSelectHour.setOnClickListener(ReportInfoActivity.this);
+                        btnSelectDate.setOnClickListener(ReportInfoActivity.this);
+
 
                     }
                     else if (items[i].equals("Create event on Facebook"))
@@ -184,6 +225,18 @@ public class ReportInfoActivity
             builder.show();
 
 
+        }
+        else if(view.getId() == R.id.btnCreateOnAppEvent){
+            //Subir la info al servidor
+        }
+        else if(view.getId() == R.id.btnCancelOnAppEvent){
+            alertDialog.dismiss();
+        }
+        else if(view.getId() == R.id.btnHour){
+            //Seleccionar la hora
+        }
+        else if(view.getId() == R.id.btnDate){
+            //Seleccionar fecha
         }
     }
 
