@@ -91,6 +91,7 @@ public class ReportInfoActivity
     boolean boolHasEvent;
     //Fecha y hora del evento
     static int year, month, day, hour, minute;
+    String setEventTitle, setEventDescription, setEventTime;
 
 
     @Override
@@ -242,6 +243,11 @@ public class ReportInfoActivity
 
         } else if (view.getId() == R.id.btnCreateOnAppEvent) {
             //Subir la info al servidor
+            setEventDescription = edtxtEventDescription.toString();
+            setEventTitle = edtxtEventTitle.toString();
+            setEventTime = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day) +
+                            "T" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":00.000Z";
+
         }
         else if(view.getId() == R.id.btnCancelOnAppEvent){
             alertDialog.dismiss();
