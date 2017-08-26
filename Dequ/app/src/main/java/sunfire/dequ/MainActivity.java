@@ -81,6 +81,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -851,6 +852,7 @@ public class MainActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     Intent intent = new Intent(getBaseContext(), ReportInfoActivity.class);
+                    intent.putExtra("report", jsonObject.getString("_id"));
                     intent.putExtra("title", jsonObject.getString("title"));
                     intent.putExtra("type", jsonObject.getString("type"));
                     intent.putExtra("level", jsonObject.getString("level"));
