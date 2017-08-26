@@ -69,6 +69,5 @@ public class ReportInfoActivity
         else if(view.getId() == R.id.btnCreateFbEvent){
 
         }
-
     }
 }
