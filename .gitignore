@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 
 /Dequ REST Server/Dequ REST Server/Dequ REST Server/config.js
+/Dequ REST Server/Dequ REST Server/Dequ REST Server/uploads
