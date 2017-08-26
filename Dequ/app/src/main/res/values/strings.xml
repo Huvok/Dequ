@@ -35,6 +35,7 @@
     <string name="edreport_event_titleevent">Event</string>
     <string name="report_event_date_start">Date</string>
     <string name="report_event_hour_start">Time</string>
+    <string name="event_dialog_title">Event Information</string>
     <string-array name="report_type">
         <item>Garbage</item>
         <item>Nature</item>

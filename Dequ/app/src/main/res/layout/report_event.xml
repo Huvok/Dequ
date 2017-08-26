@@ -87,19 +87,18 @@
         android:weightSum="1">
 
         <Button
-            android:id="@+id/btnCancelEvent"
+            android:id="@+id/btnCancelOnAppEvent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:text="@string/cancel_button"/>
 
         <Button
-            android:id="@+id/btnChooseImage"
+            android:id="@+id/btnCreateOnAppEvent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:text="@string/create_event"/>
     </LinearLayout>
-
 
 </LinearLayout>
