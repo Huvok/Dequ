@@ -293,8 +293,8 @@ public class MainActivity
             ProfilePictureView profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
             profilePictureView.setProfileId(profile.getId());
 
-            //txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
-            //txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
+            txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+            txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
             boolAreMarkersVisible = false;
 
             //Progress Bar
@@ -1072,6 +1072,9 @@ public class MainActivity
                 {
                     HashMap<String, String> mapHeaders = new HashMap<String, String>();
                     mapHeaders.put("Content-Type", "application/json");
+
+                    txtViewUserName.setText(Profile.getCurrentProfile().getFirstName() + " " +
+                        Profile.getCurrentProfile().getLastName());
 
                     JSONObject jsonObjectNewReport = new JSONObject();
                     try {
