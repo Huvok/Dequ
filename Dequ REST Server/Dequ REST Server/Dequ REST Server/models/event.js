@@ -42,6 +42,7 @@ module.exports.getEventById = function (id, callback) {
 
 // Add Event
 module.exports.addEvent = function (event, callback) {
+    event.due_date = new Date(event.due_date);
     Event.create(event, callback);
 }
 

@@ -174,8 +174,8 @@ app.post('/api/reports', function (req, res) {
 	});
 });
 
-app.put('/api/reports/:_id', function(req, res) {
-	var id = req.params._id;
+app.put('/api/report', function(req, res) {
+	var id = req.query.id;
 	var report = req.body;
 	Report.updateReport(id, report, {}, function(err, report) {
 		if (err)
