@@ -116,8 +116,6 @@ public class ReportInfoActivity
         //Asignar valor del intent, no estoy seguro del textView
         txtName.setText((String)bundle.get("title"));
         txtType.setText((String)bundle.get("type"));
-        txtLevel.setText( (String)bundle.get("level"));
-        txtDescription.setText( (String)bundle.get("description"));
         txtLevel.setText((String)bundle.get("level"));
         txtDescription.setText((String)bundle.get("description"));
         decodedString = Base64.decode( (String) bundle.get("image"), Base64.NO_WRAP);
