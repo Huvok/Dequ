@@ -1,9 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fb="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="NestedWeights"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sunfire.dequ.UserProfile">
+    android:orientation="vertical"
+    tools:context="sunfire.dequ.MainActivity"
+    android:id="@+id/viewMainActivity"
+    android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        tools:context="sunfire.dequ.MainActivity"
+        android:layout_weight=".13"
+        android:weightSum="1"
+        android:background="@color/emeraldColor">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            tools:context="sunfire.dequ.MainActivity"
+            android:layout_weight="1"
+            android:weightSum="1">
+
+            <com.facebook.login.widget.ProfilePictureView
+                android:id="@+id/profilePicture"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".2"
+                android:gravity="center_horizontal"
+                fb:com_facebook_preset_size="normal"
+                android:layout_gravity="center_horizontal" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context="sunfire.dequ.MainActivity"
+                android:layout_weight=".65"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:id="@+id/txtViewUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/user_name"
+                    android:textSize="40dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtViewUserLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_level"
+        android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_weight=".10"
+    />
+
+    <TextView
+        android:id="@+id/txtViewUserExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_xp"
+        android:textSize="16dp"
+        android:layout_weight=".10"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/txtViewEvents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_event"
+        android:textSize="16dp"
+        android:layout_weight=".05"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        />
+    <ScrollView
+        android:id="@+id/scrollViewEvents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".55">
+
+
+    </ScrollView>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".03"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/btnCancelUserProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:text="@string/cancel_button"/>
+
+        <Button
+            android:id="@+id/btnLogOutUserProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:text="@string/logout_button"/>
+    </LinearLayout>
+
+
+</LinearLayout>
