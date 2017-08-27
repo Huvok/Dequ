@@ -591,15 +591,9 @@ public class MainActivity
         }
         else if (view.getId() == R.id.btnMyProfile)
         {
-            //TODO pasar datos de json al intent
-            /*JSONObject jsonObject = new JSONObject(result);
             Intent intent;
             intent = new Intent(getBaseContext(), UserProfile.class);
-            intent.putExtra("report", jsonObject.getString("_id"));
-            intent.putExtra("title", jsonObject.getString("title"));
-            intent.putExtra("has_event", jsonObject.getString("has_event"));
-
-            startActivity(intent);*/
+            startActivity(intent);
         }
 
     }
