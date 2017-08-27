@@ -73,6 +73,8 @@ public class JoinEventReportActivity
     Button btnCloseAttendance;
     ArrayList<String> lstAttendanceIds = new ArrayList<String>();
     String strEventId;
+    AlertDialog.Builder dialogPlaceReport;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +120,18 @@ public class JoinEventReportActivity
             finish();
         }
         else if(view.getId() == R.id.btnJoinEventJoin){
+
+            dialogPlaceReport = new AlertDialog.Builder(this);
+
+            viewReportDialog = getLayoutInflater().inflate(R.layout.report_dialog_layout, null);
+            dialogPlaceReport.setView(viewReportDialog).create();
+            alertDialog = dialogPlaceReport.show();
+
             HashMap<String, String> map = new HashMap<String, String>();
             map.put("Content-Type", "application/json");
             new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
                 getIntent().getExtras().getString("report"), null, map).execute();
+
         }
         else if (view.getId() == R.id.btnSeeAtendance)
         {
