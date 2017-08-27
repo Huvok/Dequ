@@ -870,6 +870,9 @@ public class MainActivity
                     intent.putExtra("level", jsonObject.getString("level"));
                     intent.putExtra("image", jsonObject.getString("image"));
                     intent.putExtra("description", jsonObject.getString("description"));
+                    intent.putExtra("create_date", jsonObject.get("create_date").toString());
+                    intent.putExtra("latitude", jsonObject.getString("latitude"));
+                    intent.putExtra("longitude", jsonObject.getString("longitude"));
                     intent.putExtra("has_event", jsonObject.getString("has_event"));
 
                     startActivity(intent);

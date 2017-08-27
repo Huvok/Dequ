@@ -177,8 +177,6 @@ public class ReportInfoActivity
                         btnCreateEventOnApp.setOnClickListener(ReportInfoActivity.this);
                         btnSelectHour.setOnClickListener(ReportInfoActivity.this);
                         btnSelectDate.setOnClickListener(ReportInfoActivity.this);
-
-
                     } else if (items[i].equals("Create event on Facebook")) {
                         startActivity(newFacebookIntent(getPackageManager(),
                                 "https://www.facebook.com/events/upcoming?ref=46&action_history=null"));
@@ -245,6 +243,23 @@ public class ReportInfoActivity
             setEventDescription = edtxtEventDescription.toString();
             setEventTitle = edtxtEventTitle.toString();
             setEventTime = setEventDay + "T" + setEventHour + ":00.000Z";
+
+            HashMap<String, String> mapHeaders = new HashMap<String, String>();
+            mapHeaders.put("Content-Type", "application/json");
+
+            JSONObject jsonObjectNewReport = new JSONObject();
+            try {
+                jsonObjectNewReport.put("report", getIntent().getExtras().get("title"));
+                jsonObjectNewReport.put("user_id", Profile.getCurrentProfile().getId());
+                jsonObjectNewReport.put("title", setEventTitle);
+                jsonObjectNewReport.put("people_needed", 3);
+                jsonObjectNewReport.put("people_count", 1);
+                jsonObjectNewReport.put("due_date", setEventTime);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            new ReportInfoActivity.RESTPostTask("http://" + getString(R.string.server_url) + "/api/event", mapHeaders, jsonObjectNewReport, "Event").execute();
         }
         else if(view.getId() == R.id.btnCancelOnAppEvent){
             alertDialog.dismiss();
@@ -298,7 +313,7 @@ public class ReportInfoActivity
                 setEventHour += ":0" + String.valueOf(minute);
             }
             else{
-                setEventHour += ":" + String.valueOf(hour);
+                setEventHour += ":" + String.valueOf(minute);
             }
             txtViewHour.setText(setEventHour);
         }
@@ -400,12 +415,21 @@ public class ReportInfoActivity
 
             JSONObject jsonObjectToUpdate = new JSONObject();
             try {
+                jsonObjectToUpdate.put("user_id", Profile.getCurrentProfile().getId());
+                jsonObjectToUpdate.put("title", getIntent().getExtras().getString("title"));
+                jsonObjectToUpdate.put("type", getIntent().getExtras().getString("type"));
+                jsonObjectToUpdate.put("level", getIntent().getExtras().getString("level"));
+                jsonObjectToUpdate.put("description", getIntent().getExtras().getString("description"));
+                jsonObjectToUpdate.put("latitude", getIntent().getExtras().getString("latitude"));
+                jsonObjectToUpdate.put("longitude", getIntent().getExtras().getString("longitude"));
+                jsonObjectToUpdate.put("create_date", getIntent().getExtras().getString("create_date"));
                 jsonObjectToUpdate.put("has_event", "true");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             new ReportInfoActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/report?id=" +
-                getIntent().getExtras().get("_id"), mapHeaders, jsonObjectToUpdate, "Event").execute();
+                getIntent().getExtras().get("report"), mapHeaders, jsonObjectToUpdate, "Event").execute();
         }
 
         private String postData() throws IOException, JSONException
