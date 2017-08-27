@@ -163,7 +163,7 @@
             android:backgroundTint="@color/btnColor"/>
 
         <Button
-            android:id="@+id/btnCreateEvent"
+            android:id="@+id/btnEvent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
