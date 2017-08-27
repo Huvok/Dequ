@@ -1134,7 +1134,6 @@ public class MainActivity
                 }
             }
 
-
             return result.toString();
         }
     }

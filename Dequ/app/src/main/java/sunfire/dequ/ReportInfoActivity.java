@@ -95,6 +95,7 @@ public class ReportInfoActivity
     //Fecha y hora del evento
     //static int year, month, day, hour, minute;
     static String setEventTitle, setEventDescription, setEventHour, setEventDay, setEventTime;
+    String strCreatedEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -417,6 +418,12 @@ public class ReportInfoActivity
                 progressDialog.dismiss();
             }
 
+            try {
+                strCreatedEvent = new JSONObject(result).getString("_id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             JSONObject jsonObjectToUpdate = new JSONObject();
             try {
                 jsonObjectToUpdate.put("user_id", Profile.getCurrentProfile().getId());
@@ -432,8 +439,9 @@ public class ReportInfoActivity
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             new ReportInfoActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/report?id=" +
-                getIntent().getExtras().get("report"), mapHeaders, jsonObjectToUpdate, "Event").execute();
+                getIntent().getExtras().get("report"), mapHeaders, jsonObjectToUpdate, "Report").execute();
         }
 
         private String postData() throws IOException, JSONException
@@ -545,7 +553,23 @@ public class ReportInfoActivity
                 progressDialog.dismiss();
             }
 
-            finish();
+            if (this.strTaskCode.equals("Report"))
+            {
+                JSONObject jsonObjectToUpdate = new JSONObject();
+
+                try {
+                    jsonObjectToUpdate.put("created_event", strCreatedEvent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                new ReportInfoActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/user/create_event?id=" +
+                        Profile.getCurrentProfile().getId(), mapHeaders, jsonObjectToUpdate, "Event").execute();
+            }
+            else
+            {
+                finish();
+            }
         }
 
         private String putData() throws IOException, JSONException

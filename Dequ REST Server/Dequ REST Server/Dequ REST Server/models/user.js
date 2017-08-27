@@ -24,6 +24,14 @@ var userSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    created_events: {
+        type: Array,
+        default: []
+    },
+    events: {
+        type: Array,
+        default: []
+    },
 	create_date: {
 		type: Date,
 		default: Date.now
@@ -47,17 +55,21 @@ module.exports.addUser = function(user, callback) {
 }
 
 // Update User
-module.exports.updateUser = function(id, user, options, callback) {
-	var query = {_id: id};
-    var update = {
-        user_id: user.user_id,
-		name: user.name,
-        lastname: user.lastname,
-        level: user.level,
-        experience: user.experience
-	}
+module.exports.updateUser = function(old_id, created_event, options, callback) {
+    var query = { user_id: old_id };
 
-	User.findOneAndUpdate(query, update, options, callback);
+    User.findOne(query, function (err, user) {
+        if (err)
+        {
+            console.log(err);
+        }
+        else
+        {
+            user.created_events.push(created_event.created_event);
+            user.markModified('object');
+            user.save(callback);
+        }
+    });
 }
 
 // Delete User
