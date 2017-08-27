@@ -189,6 +189,16 @@ public class MainActivity
     public static final Gradient ALT_HEATMAP_GRADIENT = new Gradient(ALT_HEATMAP_GRADIENT_COLORS,
             ALT_HEATMAP_GRADIENT_START_POINTS);
 
+    //Progress
+    int progressCalm = 5;
+    int progressMedium = 10;
+    int progressImportant = 15;
+    int progressUrgent = 20;
+
+    TextView txtViewUserName;
+    TextView txtViewUserLevelAndExp;
+
+
     //------------------------------------------------------------------------------------------------------------------
     //                                                      //METHODS
     @Override
@@ -257,8 +267,8 @@ public class MainActivity
             imgBtnSettings = (ImageButton) findViewById(R.id.imgBtnSettings);
 
             imgBtnSettings.setOnClickListener(this);
-            TextView txtViewUserName = (TextView) findViewById(R.id.txtViewUserName);
-            TextView txtViewUserLevelAndExp = (TextView) findViewById(R.id.txtViewUserLevelAndExp);
+            txtViewUserName = (TextView) findViewById(R.id.txtViewUserName);
+            txtViewUserLevelAndExp = (TextView) findViewById(R.id.txtViewUserLevelAndExp);
             imgViewPin = (ImageView) findViewById(R.id.imgViewPin);
             imgViewPin.setVisibility(View.INVISIBLE);
             btnReport = (Button) findViewById(R.id.btnReport);
@@ -275,6 +285,11 @@ public class MainActivity
             txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
             txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
             boolAreMarkersVisible = false;
+
+            //Progress Bar
+            progressBarExperience = (ProgressBar) findViewById(R.id.progressBarExp);
+            progressBarExperience.setMax(100);
+            progressBarExperience.setProgress(0);
         }
     }
 
@@ -534,6 +549,24 @@ public class MainActivity
             else
             {
                 SelectImage();
+                if(String.valueOf(spinnerReportLevel) == "Calm"){
+                    //TODO si sube de nivel
+                    if(progressBarExperience.getProgress() + progressCalm <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressCalm);
+                }
+                else if(String.valueOf(spinnerReportLevel) == "Medium"){
+                    if(progressBarExperience.getProgress() + progressMedium <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressMedium);
+                }
+                else if(String.valueOf(spinnerReportLevel) == "Important"){
+                    if(progressBarExperience.getProgress() + progressImportant <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressImportant);
+                }
+                else{
+                    if(progressBarExperience.getProgress() + progressUrgent <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressUrgent);
+                }
+
             }
         }
         else if (view.getId() == R.id.btnOnOffMarkers)
@@ -915,7 +948,24 @@ public class MainActivity
             }
             else if (this.strTaskCode.equals("User"))
             {
-
+                if(result != null)
+                {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        //TODO /100
+                        txtViewUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
+                        txtViewUserLevelAndExp.setText("Level: " + jsonObject.getString("level") + "    " +
+                            jsonObject.getString("experience") + " / 100");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    txtViewUserName.setText("Ohne" + " " + "Name");
+                    txtViewUserLevelAndExp.setText("Level: " + "0" + "    " +
+                            "0" + " / 100");
+                }
             }
 
             if (progressDialog != null)
