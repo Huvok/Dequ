@@ -43,6 +43,9 @@
     <string name="btn_join">Join</string>
     <string name="my_event">My Events</string>
     <string name="other_event">Other Events</string>
+    <string name="join_event_description">Do you want to join the event on Facebook too?</string>
+    <string name="stay_in_app">Stay in App</string>
+    <string name="join_fb_event">Go to Fb</string>
     <string-array name="report_type">
         <item>Garbage</item>
         <item>Nature</item>

@@ -49,6 +49,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class JoinEventReportActivity
         extends
@@ -69,12 +70,16 @@ public class JoinEventReportActivity
     byte[] decodedString;
     Bitmap bitmap;
     Button btnSeeAttendance;
-    AlertDialog alertDialog;
+    View viewReportDialog;
     Button btnCloseAttendance;
     ArrayList<String> lstAttendanceIds = new ArrayList<String>();
     String strEventId;
     AlertDialog.Builder dialogPlaceReport;
     AlertDialog alertDialog;
+    String strFBId;
+    ArrayList<String> lstFBAttendanceIds = new ArrayList<String>();
+    Button btnCancelFb;
+    Button btnAcceptFb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,18 +125,25 @@ public class JoinEventReportActivity
             finish();
         }
         else if(view.getId() == R.id.btnJoinEventJoin){
+            if(!strFBId.equals("N/A")) {
+                dialogPlaceReport = new AlertDialog.Builder(this);
 
-            dialogPlaceReport = new AlertDialog.Builder(this);
+                viewReportDialog = getLayoutInflater().inflate(R.layout.report_join_event, null);
+                dialogPlaceReport.setView(viewReportDialog).create();
+                alertDialog = dialogPlaceReport.show();
 
-            viewReportDialog = getLayoutInflater().inflate(R.layout.report_dialog_layout, null);
-            dialogPlaceReport.setView(viewReportDialog).create();
-            alertDialog = dialogPlaceReport.show();
+                btnCancelFb = (Button) viewReportDialog.findViewById(R.id.btnCancelJoinFb);
+                btnAcceptFb = (Button) viewReportDialog.findViewById(R.id.btnAcceptJoinFb);
 
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put("Content-Type", "application/json");
-            new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
-                getIntent().getExtras().getString("report"), null, map).execute();
-
+                btnAcceptFb.setOnClickListener(this);
+                btnCancelFb.setOnClickListener(this);
+            }
+            else {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("Content-Type", "application/json");
+                new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
+                        getIntent().getExtras().getString("report"), null, map).execute();
+            }
         }
         else if (view.getId() == R.id.btnSeeAtendance)
         {
@@ -140,12 +152,16 @@ public class JoinEventReportActivity
             View viewReportDialog = getLayoutInflater().inflate(R.layout.attendance_dialog, null);
             final LinearLayout layoutScrollView = (LinearLayout) viewReportDialog.findViewById(R.id.layoutScrollView);
 
-            for (String str : lstAttendanceIds)
+
+            HashMap<String, String> map = new HashMap<String, String>();
+            for (String str : lstAttendanceIds) map.put(str, str);
+            for (String str : lstFBAttendanceIds) map.put(str, str);
+            for (Map.Entry<String, String> entry : map.entrySet())
             {
-                final String id = str;
+                final String id = entry.getKey();
                 new GraphRequest(
                         AccessToken.getCurrentAccessToken(),
-                        "/" + str,
+                        "/" + entry.getKey(),
                         null,
                         HttpMethod.GET,
                         new GraphRequest.Callback() {
@@ -179,6 +195,17 @@ public class JoinEventReportActivity
         else if (view.getId() == R.id.btnCloseAttendance)
         {
             alertDialog.dismiss();
+        }
+        else if (view.getId() == R.id.btnCancelJoinFb)
+        {
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("Content-Type", "application/json");
+            new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
+                    getIntent().getExtras().getString("report"), null, map).execute();
+        }
+        else if (view.getId() == R.id.btnAcceptJoinFb)
+        {
+            //Aceptarfb
         }
     }
 
@@ -237,7 +264,6 @@ public class JoinEventReportActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject jsonObjectToUpdate = new JSONObject();
-                    strEventId = jsonObject.getString("_id");
                     jsonObjectToUpdate.put("event", jsonObject.getString("_id"));
                     new JoinEventReportActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/user/event?id=" +
                             Profile.getCurrentProfile().getId(), mapHeaders, jsonObjectToUpdate, "Event").execute();
@@ -250,7 +276,8 @@ public class JoinEventReportActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray jsonArray = jsonObject.getJSONArray("attending");
-
+                    strEventId = jsonObject.getString("_id");
+                    strFBId = jsonObject.getString("FB_id");
                     for (int i = 0; i < jsonArray.length(); i++)
                     {
                         lstAttendanceIds.add(jsonArray.getString(i));
@@ -323,7 +350,7 @@ public class JoinEventReportActivity
                 HashMap<String, String> mapHeaders,
                 JSONObject jsonObject,
                 String strTaskCode
-        )
+            )
         {
             this.strURL = strURL;
             this.mapHeaders = mapHeaders;
@@ -373,6 +400,31 @@ public class JoinEventReportActivity
                 }
                 new JoinEventReportActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/event?id=" +
                             strEventId, mapHeaders, jsonObject, "UpdateEvent").execute();
+            }
+            else if (this.strTaskCode.equals("UpdateEvent"))
+            {
+                if (!strFBId.equals("N/A")) {
+                /* make the API call */
+                    new GraphRequest(
+                            AccessToken.getCurrentAccessToken(),
+                            "/" + strFBId + "/attending",
+                            null,
+                            HttpMethod.GET,
+                            new GraphRequest.Callback() {
+                                public void onCompleted(GraphResponse response) {
+                                    JSONObject jsonObject = response.getJSONObject();
+                                    try {
+                                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            lstFBAttendanceIds.add(jsonArray.getJSONObject(i).getString("id"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                    ).executeAsync();
+                }
             }
 
             if (progressDialog != null)

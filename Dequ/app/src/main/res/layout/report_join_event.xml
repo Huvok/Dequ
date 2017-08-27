@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/alertColor"
+    android:theme="@style/AlertDialog.AppCompat">
+
+    <TextView
+        android:id="@+id/txtViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="Join Event"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:background="@color/emeraldcolor"/>
+
+    <TextView
+        android:id="@+id/edTxtDescriptionJoinEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="18dp"
+        android:text="@string/join_event_description"
+        android:inputType="textMultiLine"
+        />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"/>
+        <Button
+            android:id="@+id/btnCancelJoinFb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".4"
+            android:text="@string/stay_in_app"
+            android:drawableTop="@drawable/ic_cancel_black_24px"
+            android:backgroundTint="@color/cancelColor"/>
+
+        <Button
+            android:id="@+id/btnAcceptJoinFb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".4"
+            android:text="@string/join_fb_event"
+            android:backgroundTint="@color/cancelColor"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"/>
+    </LinearLayout>
+
+
+</LinearLayout>
