@@ -34,6 +34,8 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json());
 
+mongoose.Promise = global.Promise;
+
 //                                                          //Connect to Mongoose.
 mongoose.connect('mongodb://localhost/Dequ-DEV', function(err) {
     if (err)
@@ -87,19 +89,30 @@ app.post('/api/users', function(req, res) {
 	});
 });
 
-app.put('/api/users/:_id', function(req, res) {
-	var id = req.params._id;
-	var user = req.body;
-	User.updateUser(id, user, {}, function(err, user) {
-		if (err)
-		{
-			throw err;
-		}
-		else
-		{
-			res.json(user);
-		}
-	});
+app.put('/api/user/create_event', function (req, res) {
+    var id = req.query.id;
+    var user = req.body;
+    User.updateUser(id, user, {}, function (err, user) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(user);
+        }
+    });
+});
+
+app.put('/api/user/event', function (req, res) {
+    var id = req.query.id;
+    var user = req.body;
+    User.updateUserEvent(id, user, {}, function (err, user) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(user);
+        }
+    });
 });
 
 app.delete('/api/users/:_id', function(req, res) {
@@ -116,17 +129,26 @@ app.delete('/api/users/:_id', function(req, res) {
 	});
 });
 
-app.get('/api/reports', function(req, res){
-	Report.getReports(function(err, reports) {
-		if (err)
-		{
-			throw err;
-		}
-		else
-		{
-			res.json(reports);
-		}
-	});
+app.get('/api/reports', function (req, res) {
+    Report.getReports(function (err, reports) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(reports);
+        }
+    });
+});
+
+app.get('/api/event_by_report', function (req, res) {
+    Event.getEventByReport(req.query.id, function(err, reports) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(reports);
+        }
+    });
 });
 
 app.get('/api/report', function (req, res) {

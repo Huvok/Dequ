@@ -148,6 +148,7 @@ public class MainActivity
     Button btnCancelReport;
     Button btnChooseImage;
     Button btnOnOffMarkers;
+    Button btnProfile;
     boolean boolAreMarkersVisible;
     AlertDialog.Builder dialogPlaceReport;
     AlertDialog alertDialog;
@@ -191,10 +192,11 @@ public class MainActivity
             ALT_HEATMAP_GRADIENT_START_POINTS);
 
     //Progress
+    int currentLevel;
     int progressCalm = 5;
     int progressMedium = 10;
     int progressImportant = 15;
-    int progressUrgent = 20;
+    int progressUrgent = 80;
 
     TextView txtViewUserName;
     TextView txtViewUserLevelAndExp;
@@ -268,25 +270,28 @@ public class MainActivity
             googleApiClient.connect();
 
             imgBtnSettings = (ImageButton) findViewById(R.id.imgBtnSettings);
-
-            imgBtnSettings.setOnClickListener(this);
+            imgViewPin = (ImageView) findViewById(R.id.imgViewPin);
             txtViewUserName = (TextView) findViewById(R.id.txtViewUserName);
             txtViewUserLevelAndExp = (TextView) findViewById(R.id.txtViewUserLevelAndExp);
-            imgViewPin = (ImageView) findViewById(R.id.imgViewPin);
-            imgViewPin.setVisibility(View.INVISIBLE);
             btnReport = (Button) findViewById(R.id.btnReport);
             btnPlaceReport = (Button) findViewById(R.id.btnPlaceReport);
+            btnOnOffMarkers = (Button) findViewById(R.id.btnOnOffMarkers);
+            btnProfile = (Button) findViewById(R.id.btnMyProfile);
+
+            imgBtnSettings.setOnClickListener(this);
             btnPlaceReport.setOnClickListener(this);
             btnReport.setOnClickListener(this);
-            btnPlaceReport.setVisibility(View.INVISIBLE);
-            btnOnOffMarkers = (Button) findViewById(R.id.btnOnOffMarkers);
             btnOnOffMarkers.setOnClickListener(this);
+            btnProfile.setOnClickListener(this);
+
+            imgViewPin.setVisibility(View.INVISIBLE);
+            btnPlaceReport.setVisibility(View.INVISIBLE);
 
             ProfilePictureView profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
             profilePictureView.setProfileId(profile.getId());
 
-            txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
-            txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
+            //txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+            //txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
             boolAreMarkersVisible = false;
 
             //Progress Bar
@@ -554,22 +559,43 @@ public class MainActivity
                 SelectImage();
                 if(String.valueOf(spinnerReportLevel) == "Calm"){
                     //TODO si sube de nivel
-                    if(progressBarExperience.getProgress() + progressCalm <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressCalm < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressCalm);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
                 else if(String.valueOf(spinnerReportLevel) == "Medium"){
-                    if(progressBarExperience.getProgress() + progressMedium <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressMedium < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressMedium);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
                 else if(String.valueOf(spinnerReportLevel) == "Important"){
-                    if(progressBarExperience.getProgress() + progressImportant <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressImportant < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressImportant);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
                 else{
-                    if(progressBarExperience.getProgress() + progressUrgent <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressUrgent < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressUrgent);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
-
+                txtViewUserLevelAndExp.setText("Level: " + String.valueOf(currentLevel) + "    " +
+                        String.valueOf(progressBarExperience.getProgress()) + " / " + String.valueOf(progressBarExperience.getMax()));
             }
         }
         else if (view.getId() == R.id.btnOnOffMarkers)
@@ -587,6 +613,12 @@ public class MainActivity
             }
 
             boolAreMarkersVisible = !boolAreMarkersVisible;
+        }
+        else if (view.getId() == R.id.btnMyProfile)
+        {
+            Intent intent;
+            intent = new Intent(getBaseContext(), UserProfile.class);
+            startActivity(intent);
         }
 
     }
@@ -955,10 +987,12 @@ public class MainActivity
                 {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
-                        //TODO /100
+                        currentLevel = Integer.parseInt(jsonObject.getString("level"));
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                        progressBarExperience.setProgress(Integer.parseInt(jsonObject.getString("experience")));
                         txtViewUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
-                        txtViewUserLevelAndExp.setText("Level: " + jsonObject.getString("level") + "    " +
-                            jsonObject.getString("experience") + " / 100");
+                        txtViewUserLevelAndExp.setText("Level: " + String.valueOf(currentLevel) + "    " +
+                            String.valueOf(progressBarExperience.getProgress()) + " / " + String.valueOf(progressBarExperience.getMax()));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -975,6 +1009,9 @@ public class MainActivity
                         jsonObjectNewReport.put("lastname", profile.getLastName());
                         jsonObjectNewReport.put("level", 0);
                         jsonObjectNewReport.put("experience", 0);
+                        progressBarExperience.setMax(100);
+                        progressBarExperience.setProgress(0);
+                        currentLevel = 0;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -1136,7 +1173,6 @@ public class MainActivity
                     bufferedWriter.close();
                 }
             }
-
 
             return result.toString();
         }

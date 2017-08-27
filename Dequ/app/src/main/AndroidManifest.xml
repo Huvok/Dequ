@@ -41,6 +41,7 @@
         <activity android:name=".ReportInfoActivity"></activity>
         <activity android:name=".JoinEventReportActivity"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".UserProfile"></activity>
     </application>
 
 </manifest>
