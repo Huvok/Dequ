@@ -68,7 +68,10 @@ module.exports.updateReport = function(id, report, options, callback) {
         description: report.description,
         latitude: report.latitude,
         longitude: report.longitude,
+<<<<<<< HEAD
+=======
         create_date: report.create_date,
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
         has_event: report.has_event
 	}
 	
