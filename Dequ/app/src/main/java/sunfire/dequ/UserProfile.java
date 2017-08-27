@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -45,10 +46,11 @@ public class UserProfile
     TextView txtUserName;
     TextView txtUserLevel;
     TextView txtUserExp;
-    ScrollView scrollMyEvents;
-    ScrollView scrollOtherEvents;
+    LinearLayout layoutCreatedEvents;
+    LinearLayout layoutEvents;
     ArrayList<Event> lstCreatedEvents, lstEvents;
     ArrayList<TextView> lstViewCreatedEvents = new ArrayList<TextView>();
+    ArrayList<TextView> lstViewEvents = new ArrayList<TextView>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +61,8 @@ public class UserProfile
         txtUserName = (TextView) findViewById(R.id.txtViewUserName);
         txtUserLevel = (TextView) findViewById(R.id.txtViewUserLevel);
         txtUserExp = (TextView) findViewById(R.id.txtViewUserExp);
-        scrollMyEvents = (ScrollView) findViewById(R.id.scrollViewMyEvents);
-        scrollOtherEvents = (ScrollView) findViewById(R.id.scrollViewOtherEvents);
+        layoutCreatedEvents = (LinearLayout) findViewById(R.id.layoutCreatedEvents);
+        layoutEvents = (LinearLayout) findViewById(R.id.layoutEvents);
 
         ProfilePictureView profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
         profilePictureView.setProfileId(Profile.getCurrentProfile().getId());
@@ -192,7 +194,7 @@ public class UserProfile
                             + "\r\n # People: " + String.valueOf(lstCreatedEvents.get(i).intPeopleCount) + "\r\n People needed: " +
                             String.valueOf(lstCreatedEvents.get(i).intPeopleNeeded) + "\r\n Description: " +
                             lstCreatedEvents.get(i).strReport));
-                    scrollMyEvents.addView(lstViewCreatedEvents.get(i));
+                    layoutCreatedEvents.addView(lstViewCreatedEvents.get(i));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -205,6 +207,15 @@ public class UserProfile
                             jsonObject.getString("title"), jsonObject.getInt("people_needed"), jsonObject.getInt("people_count"),
                             jsonObject.getString("due_date"), jsonObject.getString("create_date"));
                     lstEvents.add(e);
+                    TextView textView = new TextView(UserProfile.this);
+                    lstViewEvents.add(textView);
+                    int i = lstViewEvents.size() - 1;
+                    lstViewEvents.get(i).setText((lstEvents.get(i).strTitle + "\r\n Created: " +
+                            lstEvents.get(i).strCreateDate + "\r\n Scheduled: " + lstEvents.get(i).strDueDate
+                            + "\r\n # People: " + String.valueOf(lstEvents.get(i).intPeopleCount) + "\r\n People needed: " +
+                            String.valueOf(lstEvents.get(i).intPeopleNeeded) + "\r\n Description: " +
+                            lstEvents.get(i).strReport));
+                    layoutEvents.addView(lstViewEvents.get(i));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
