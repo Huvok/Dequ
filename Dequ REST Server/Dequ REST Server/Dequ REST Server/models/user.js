@@ -55,17 +55,30 @@ module.exports.addUser = function(user, callback) {
 }
 
 // Update User
-module.exports.updateUser = function(old_id, created_event, options, callback) {
+module.exports.updateUser = function (old_id, created_event, options, callback) {
     var query = { user_id: old_id };
 
     User.findOne(query, function (err, user) {
-        if (err)
-        {
+        if (err) {
             console.log(err);
         }
-        else
-        {
+        else {
             user.created_events.push(created_event.created_event);
+            user.markModified('object');
+            user.save(callback);
+        }
+    });
+}
+
+module.exports.updateUserEvent = function (old_id, event, options, callback) {
+    var query = { user_id: old_id };
+
+    User.findOne(query, function (err, user) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            user.events.push(event.event);
             user.markModified('object');
             user.save(callback);
         }

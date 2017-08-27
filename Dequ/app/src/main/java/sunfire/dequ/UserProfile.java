@@ -159,15 +159,24 @@ public class UserProfile
                     {
                         HashMap<String, String> map = new HashMap<String, String>();
                         map.put("Content-Type", "application/json");
-                        new UserProfile.RESTGetTask("Event", "http://" + getString(R.string.server_url) + "/api/event?id=" +
+                        new UserProfile.RESTGetTask("Created Events", "http://" + getString(R.string.server_url) + "/api/event?id=" +
                             jsonArray.getString(i), null, map).execute();
+                    }
+
+                    jsonArray = jsonObject.getJSONArray("events");
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put("Content-Type", "application/json");
+                        new UserProfile.RESTGetTask("Events", "http://" + getString(R.string.server_url) + "/api/event?id=" +
+                                jsonArray.getString(i), null, map).execute();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            else if (this.strTaskCode.equals("Event"))
+            else if (this.strTaskCode.equals("Created Events"))
             {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -175,6 +184,18 @@ public class UserProfile
                             jsonObject.getString("title"), jsonObject.getInt("people_needed"), jsonObject.getInt("people_count"),
                             jsonObject.getString("due_date"), jsonObject.getString("create_date"));
                     lstCreatedEvents.add(e);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (this.strTaskCode.equals("Events"))
+            {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    Event e = new Event(jsonObject.getString("report"), Profile.getCurrentProfile().getId(),
+                            jsonObject.getString("title"), jsonObject.getInt("people_needed"), jsonObject.getInt("people_count"),
+                            jsonObject.getString("due_date"), jsonObject.getString("create_date"));
+                    lstEvents.add(e);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
