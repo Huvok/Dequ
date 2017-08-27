@@ -1,89 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fb="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="NestedWeights"
+xmlns:fb="http://schemas.android.com/apk/res-auto"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:ignore="NestedWeights"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="sunfire.dequ.MainActivity"
+android:id="@+id/viewMainActivity"
+android:weightSum="1">
+
+<TextView
+    android:id="@+id/txtViewJoinEventTitle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="sunfire.dequ.MainActivity"
-    android:id="@+id/viewMainActivity"
+    android:layout_height="0dp"
+    android:layout_weight=".07"
+    android:ems="10"
+    android:gravity="center"
+    android:text="@string/info_report_title"
+    android:textSize="28sp"
+    android:textStyle="bold"/>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight=".05"
+    android:orientation="horizontal"
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/txtViewJoinEventName"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
         android:ems="10"
-        android:text="@string/info_report_title"
-        android:layout_weight=".07"/>
+        android:gravity="center"
+        android:text="Type:"
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/txtViewJoinEventType"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
         android:ems="10"
         android:text="@string/info_report_type"
-        android:layout_weight="0.05"/>
+        android:textSize="22sp" />
+
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight=".05"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/txtViewJoinEventLevelTag"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:ems="10"
+        android:gravity="center"
+        android:text="Level:"
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/txtViewJoinEventLevel"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
         android:ems="10"
-        android:text="@string/info_report_level"
-        android:layout_weight="0.05"/>
+        android:textSize="22sp"
+        android:text="@string/info_report_level" />
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight=".05"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/txtViewJoinEventPeopleTag"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:ems="10"
+        android:gravity="center"
+        android:text="People:"
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/txtViewJoinEventPeople"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
         android:ems="10"
-        android:text="@string/info_event_people"
-        android:layout_weight="0.05"/>
+        android:textSize="22sp"
+        android:text="@string/info_report_people" />
+</LinearLayout>
 
-    <TextView
-        android:id="@+id/txtViewJoinEventDescription"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:layout_weight="0.15"
-        android:text="@string/info_report_description" />
+<TextView
+    android:id="@+id/txtViewJoinEventDescription"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.15"
+    android:ems="10"
+    android:gravity="center"
+    android:text="@string/info_report_description"
+    android:textSize="22sp" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.50"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:layout_weight=".1">
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imgViewJoinEvent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".53"
-        app:srcCompat="@android:drawable/btn_star" />
+        android:layout_width="0dp"
+        android:layout_height="279dp"
+        app:srcCompat="@android:drawable/btn_star"
+        android:layout_weight="0.80"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        tools:context="sunfire.dequ.MainActivity"
-        android:layout_weight=".1"
-        android:weightSum="1">
-
-        <Button
-            android:id="@+id/btnCancelJoinEvent"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:text="@string/btn_cancel_event"/>
-
-
-        <Button
-            android:id="@+id/btnJoinEventJoin"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:text="@string/btn_join_event"/>
-
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".1">
     </LinearLayout>
+
+</LinearLayout>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="horizontal"
+    tools:context="sunfire.dequ.MainActivity"
+    android:layout_weight=".13"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".1"
+        android:layout_height="match_parent">
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCancelJoinEvent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".4"
+        android:text="@string/btn_cancel_event"
+        android:drawableTop="@drawable/ic_cancel_black_24px"/>
+
+
+    <Button
+        android:id="@+id/btnJoinEventJoin"
+        android:layout_width="0dp"
+        android:layout_weight=".4"
+        android:layout_height="match_parent"
+        android:text="@string/btn_create_event" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".1"
+        android:layout_height="match_parent">
+    </LinearLayout>
+
+</LinearLayout>
 
 
 </LinearLayout>
