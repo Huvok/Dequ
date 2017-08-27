@@ -96,7 +96,7 @@ public class ReportInfoActivity
     //static int year, month, day, hour, minute;
     static String setEventTitle, setEventDescription, setEventHour, setEventDay, setEventTime;
     String strCreatedEvent;
-    EditText edTxtPeopleNeeded;
+    EditText edTxtNeeded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -115,7 +115,6 @@ public class ReportInfoActivity
         btnCancelEvent = (Button) findViewById(R.id.btnCancelFbEvent);
         btnCreateEvent = (Button) findViewById(R.id.btnCreateFbEvent);
         imgReport = (ImageView) findViewById(R.id.imgViewReport);
-        edTxtPeopleNeeded = (EditText) findViewById(R.id.edTxtPeopleNeeded);
         //Asignar valor del intent, no estoy seguro del textView
         txtName.setText((String)bundle.get("title"));
         txtType.setText((String)bundle.get("type"));
@@ -166,6 +165,8 @@ public class ReportInfoActivity
                         btnSelectHour = (Button) viewEventDialog.findViewById(R.id.btnHour);
                         edtxtEventDescription = (EditText) viewEventDialog.findViewById(R.id.edTxtDescription);
                         edtxtEventTitle = (EditText) viewEventDialog.findViewById(R.id.edTxtReportEventTitle);
+                        edTxtNeeded = (EditText) viewEventDialog.findViewById(R.id.edTxtPeopleNeeded);
+
                         txtViewDate = (TextView) viewEventDialog.findViewById(R.id.txtViewDateStart);
                         txtViewHour = (TextView) viewEventDialog.findViewById(R.id.txtViewHourStart);
 
@@ -254,7 +255,7 @@ public class ReportInfoActivity
                 jsonObjectNewReport.put("report", getIntent().getExtras().get("report"));
                 jsonObjectNewReport.put("user_id", Profile.getCurrentProfile().getId());
                 jsonObjectNewReport.put("title", setEventTitle);
-                jsonObjectNewReport.put("people_needed", Integer.parseInt(edTxtPeopleNeeded.getText().toString()));
+                jsonObjectNewReport.put("people_needed", Integer.parseInt(edTxtNeeded.getText().toString()));
                 jsonObjectNewReport.put("people_count", 1);
                 jsonObjectNewReport.put("due_date", setEventTime);
                 jsonObjectNewReport.put("event_origin", "Dequ");

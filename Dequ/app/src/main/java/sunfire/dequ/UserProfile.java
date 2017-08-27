@@ -64,9 +64,14 @@ public class UserProfile
         txtUserExp = (TextView) findViewById(R.id.txtViewUserExp);
         layoutCreatedEvents = (LinearLayout) findViewById(R.id.layoutCreatedEvents);
         layoutEvents = (LinearLayout) findViewById(R.id.layoutEvents);
+        //Get instance info
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
 
         ProfilePictureView profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
         profilePictureView.setProfileId(Profile.getCurrentProfile().getId());
+        txtUserLevel.setText(String.valueOf( bundle.get("Level") ));
+        txtUserExp.setText(String.valueOf( bundle.get("Progress") ) + "/" + String.valueOf( bundle.get("Max") ) );
         txtUserName.setText(Profile.getCurrentProfile().getFirstName() + " " + Profile.getCurrentProfile().getLastName());
         btnCancel.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
@@ -152,9 +157,6 @@ public class UserProfile
             {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    txtUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
-                    txtUserLevel.setText(jsonObject.getString("level"));
-                    txtUserExp.setText(jsonObject.getString("experience"));
                     JSONArray jsonArray = jsonObject.getJSONArray("created_events");
                     lstCreatedEvents = new ArrayList<Event>();
                     lstEvents = new ArrayList<Event>();
@@ -195,7 +197,8 @@ public class UserProfile
                     textTitle.setTypeface(null, Typeface.BOLD);
                     textTitle.setPadding(50, 0, 0, 0);
                     ly.addView(textTitle);
-                    textView.setText(("Scheduled on: " + e.strDueDate
+                    //TODO days left
+                    textView.setText(("Scheduled on: " + e.strDueDate.substring(0, 10) + " At " + e.strDueDate.substring(11, 16)
                             + "\r\nPeople Needed: " + String.valueOf(e.intPeopleNeeded)
                             + "\r\nRegistered Count: " + String.valueOf(e.intPeopleCount) + "\r\n"));
                     textView.setPadding(50, 0, 0, 0);
@@ -221,7 +224,8 @@ public class UserProfile
                     textTitle.setTypeface(null, Typeface.BOLD);
                     textTitle.setPadding(50, 0, 0, 0);
                     ly.addView(textTitle);
-                    textView.setText(("\r\nScheduled on: " + e.strDueDate
+                    //TODO days left
+                    textView.setText(("Scheduled on: " + e.strDueDate.substring(0, 10) + " At " + e.strDueDate.substring(11, 16)
                             + "\r\nPeople Needed: " + String.valueOf(e.intPeopleNeeded)
                             + "\r\nRegistered Count: " + String.valueOf(e.intPeopleCount) + "\r\n"));
                     textView.setPadding(50, 0, 0, 0);
