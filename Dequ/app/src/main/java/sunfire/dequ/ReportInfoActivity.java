@@ -300,7 +300,7 @@ public class ReportInfoActivity
                 setEventHour += ":0" + String.valueOf(minute);
             }
             else{
-                setEventHour += ":" + String.valueOf(hour);
+                setEventHour += ":" + String.valueOf(minute);
             }
             txtViewHour.setText(setEventHour);
         }
