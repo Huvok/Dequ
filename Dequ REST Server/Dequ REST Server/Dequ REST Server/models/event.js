@@ -40,6 +40,10 @@ module.exports.getEventById = function (id, callback) {
     Event.findById(id, callback);
 }
 
+module.exports.getEventByReport = function (id, callback) {
+    Event.findOne({ report: id }, callback);
+}
+
 // Add Event
 module.exports.addEvent = function (event, callback) {
     event.due_date = new Date(event.due_date);
