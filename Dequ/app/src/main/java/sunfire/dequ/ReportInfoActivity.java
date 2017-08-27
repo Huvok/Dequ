@@ -1,7 +1,10 @@
 package sunfire.dequ;
 
 import android.app.Activity;
+<<<<<<< HEAD
+=======
 import android.app.DatePickerDialog;
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
@@ -62,7 +65,8 @@ public class ReportInfoActivity
         extends
         AppCompatActivity
     implements
-        View.OnClickListener
+        View.OnClickListener,
+        TimePickerDialog.OnTimeSetListener
 {
     //Bitmap
     byte[] decodedString;
@@ -75,8 +79,11 @@ public class ReportInfoActivity
     TextView txtType;
     TextView txtLevel;
     TextView txtDescription;
+<<<<<<< HEAD
+=======
     static TextView txtViewDate;
     static TextView txtViewHour;
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
     //Dialogo crear evento
     AlertDialog.Builder dialogPlaceEvent;
     AlertDialog alertDialog;
@@ -87,11 +94,16 @@ public class ReportInfoActivity
     Button btnSelectHour;
     Button btnCancelEventOnApp;
     Button btnCreateEventOnApp;
+<<<<<<< HEAD
+    //Fecha y hora del evento
+    int yearR, monthR, dayR, hourR, minuteR;
+=======
     Button btnJoinEvent;
     boolean boolHasEvent;
     //Fecha y hora del evento
     //static int year, month, day, hour, minute;
     static String setEventTitle, setEventDescription, setEventHour, setEventDay, setEventTime;
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
 
 
     @Override
@@ -104,27 +116,23 @@ public class ReportInfoActivity
         Bundle bundle = intent.getExtras();
         //TODO Debería checar que el intent no sea NULL?
         //Asignar al objeto
-        txtName = (TextView) findViewById(R.id.txtViewReportInfoName);
+        txtName = (TextView) findViewById(R.id.txtViewReportTitle);
         txtDescription = (TextView) findViewById(R.id.txtViewReportInfoDescription);
         txtType = (TextView) findViewById(R.id.txtViewReportInfoType);
         txtLevel = (TextView) findViewById(R.id.txtViewReportInfoLevel);
         btnCancelEvent = (Button) findViewById(R.id.btnCancelFbEvent);
         btnCreateEvent = (Button) findViewById(R.id.btnCreateFbEvent);
-        btnJoinEvent = (Button) findViewById(R.id.btnJoinEvent);
         imgReport = (ImageView) findViewById(R.id.imgViewReport);
         //Asignar valor del intent, no estoy seguro del textView
         txtName.setText((String)bundle.get("title"));
         txtType.setText((String)bundle.get("type"));
+<<<<<<< HEAD
+        txtLevel.setText( (String)bundle.get("level"));
+        txtDescription.setText( (String)bundle.get("description"));
+=======
         txtLevel.setText((String)bundle.get("level"));
-        if (bundle.get("has_event").toString().equals("true"))
-        {
-            btnCreateEvent.setEnabled(false);
-        }
-        else
-        {
-            btnJoinEvent.setEnabled(false);
-        }
         txtDescription.setText((String)bundle.get("description"));
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
         decodedString = Base64.decode( (String) bundle.get("image"), Base64.NO_WRAP);
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         bitmap = BitmapFactory.decodeStream(inputStream);
@@ -155,7 +163,12 @@ public class ReportInfoActivity
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
 
+<<<<<<< HEAD
+                    if (items[i].equals("Create event from app"))
+                    {
+=======
                     if (items[i].equals("Create event from app")) {
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
                         //Saltar al otro layout
                         dialogPlaceEvent = new AlertDialog.Builder(ReportInfoActivity.this);
 
@@ -170,17 +183,33 @@ public class ReportInfoActivity
                         btnSelectHour = (Button) viewEventDialog.findViewById(R.id.btnHour);
                         edtxtEventDescription = (EditText) viewEventDialog.findViewById(R.id.edTxtDescription);
                         edtxtEventTitle = (EditText) viewEventDialog.findViewById(R.id.edTxtReportEventTitle);
+<<<<<<< HEAD
+=======
                         txtViewDate = (TextView) viewEventDialog.findViewById(R.id.txtViewDateStart);
                         txtViewHour = (TextView) viewEventDialog.findViewById(R.id.txtViewHourStart);
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
 
                         btnCancelEventOnApp.setOnClickListener(ReportInfoActivity.this);
                         btnCreateEventOnApp.setOnClickListener(ReportInfoActivity.this);
                         btnSelectHour.setOnClickListener(ReportInfoActivity.this);
                         btnSelectDate.setOnClickListener(ReportInfoActivity.this);
+<<<<<<< HEAD
+
+
+                    }
+                    else if (items[i].equals("Create event on Facebook"))
+                    {
+                        startActivity(newFacebookIntent(getPackageManager(),
+                            "https://www.facebook.com/events/upcoming?ref=46&action_history=null"));
+                    }
+                    else if (items[i].equals("Link to a Facebook event"))
+                    {
+=======
                     } else if (items[i].equals("Create event on Facebook")) {
                         startActivity(newFacebookIntent(getPackageManager(),
                                 "https://www.facebook.com/events/upcoming?ref=46&action_history=null"));
                     } else if (items[i].equals("Link to a Facebook event")) {
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
                         new GraphRequest(
                                 AccessToken.getCurrentAccessToken(),
                                 "/me/events",
@@ -352,6 +381,57 @@ public class ReportInfoActivity
             txtViewDate.setText(setEventDay);
 
         }
+        else if(view.getId() == R.id.btnCreateOnAppEvent){
+            //Subir la info al servidor
+        }
+        else if(view.getId() == R.id.btnCancelOnAppEvent){
+            alertDialog.dismiss();
+        }
+        else if(view.getId() == R.id.btnHour){
+            DialogFragment newFragment = new TimePickerFragment();
+            newFragment.show(getFragmentManager(), "timePicker");
+        }
+        else if(view.getId() == R.id.btnDate){
+            //Seleccionar fecha
+        }
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+    }
+
+    //==================================================================================================================
+    public static Intent newFacebookIntent(PackageManager pm, String url) {
+        Uri uri = Uri.parse(url);
+        try {
+            ApplicationInfo applicationInfo = pm.getApplicationInfo("com.facebook.katana", 0);
+            if (applicationInfo.enabled) {
+                // http://stackoverflow.com/a/24547437/1048340
+                uri = Uri.parse("fb://facewebmodal/f?href=" + url);
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+        return new Intent(Intent.ACTION_VIEW, uri);
+    }
+
+    //==================================================================================================================
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int hour = 0;
+            int minute = 0;
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // Do something with the time chosen by the user
+        }
     }
 
     //==================================================================================================================
@@ -481,6 +561,8 @@ public class ReportInfoActivity
             return result.toString();
         }
     }
+<<<<<<< HEAD
+=======
 
     //==================================================================================================================
     class RESTPutTask extends AsyncTask<String, Void, String>
@@ -585,4 +667,5 @@ public class ReportInfoActivity
 
         }
     }
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
 }

@@ -7,5 +7,9 @@
         <item name="colorPrimaryDark">#006600</item>
         <item name="colorAccent">#668cff</item>
     </style>
+    <style name="Theme" parent="AlertDialog.AppCompat">
+
+
+    </style>
 
 </resources>
