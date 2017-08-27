@@ -1073,6 +1073,9 @@ public class MainActivity
                     HashMap<String, String> mapHeaders = new HashMap<String, String>();
                     mapHeaders.put("Content-Type", "application/json");
 
+                    txtViewUserName.setText(Profile.getCurrentProfile().getFirstName() + " " +
+                        Profile.getCurrentProfile().getLastName());
+
                     JSONObject jsonObjectNewReport = new JSONObject();
                     try {
                         jsonObjectNewReport.put("user_id", profile.getId());
