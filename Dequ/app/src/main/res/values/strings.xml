@@ -37,6 +37,9 @@
     <string name="report_event_hour_start">Time</string>
     <string name="event_dialog_title">Event Information</string>
     <string name="btn_join_event">Join Event</string>
+    <string name="info_event_people">People Joined</string>
+    <string name="info_report_people">People</string>
+    <string name="btn_join">Join</string>
     <string-array name="report_type">
         <item>Garbage</item>
         <item>Nature</item>
