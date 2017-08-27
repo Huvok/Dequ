@@ -12,4 +12,5 @@
     <color name="btnColor">#cecc3d</color>
     <color name="cancelColor">#fcfcfc</color>
     <color name="alertColor">#7f18b26d</color>
+    <color name="lesscolor">#efe66b</color>
 </resources>

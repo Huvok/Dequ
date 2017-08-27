@@ -49,13 +49,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".8"
+                    android:background="@color/btnColor"
+                    android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="8dp"
                     android:text="@string/user_name"
-                    android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
-                    android:background="@color/btnColor"/>
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -75,7 +76,7 @@
         android:text="User Level:"
         android:textColor="@android:color/black"
         android:gravity="center"
-        android:background="@color/emeraldColor"/>
+        android:background="@color/lesscolor"/>
     <TextView
         android:id="@+id/txtViewUserLevel"
         android:layout_width="0dp"
@@ -86,7 +87,7 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="@color/emeraldColor"/>
+        android:background="@color/lesscolor"/>
 </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,7 +104,7 @@
                 android:text="User experience:"
                 android:textColor="@android:color/black"
                 android:gravity="center"
-                android:background="@color/emeraldColor"/>
+                android:background="@color/lesscolor"/>
         <TextView
             android:id="@+id/txtViewUserExp"
             android:layout_width="0dp"
@@ -114,7 +115,7 @@
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:background="@color/emeraldColor"/>
+            android:background="@color/lesscolor"/>
         </LinearLayout>
 
 
@@ -127,7 +128,7 @@
             android:text="@string/my_event"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:background="@color/emeraldColor"/>
 
@@ -148,7 +149,7 @@
             android:text="@string/other_event"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:background="@color/emeraldColor"/>
 
