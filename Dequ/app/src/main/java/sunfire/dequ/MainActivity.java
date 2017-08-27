@@ -523,7 +523,6 @@ public class MainActivity
 
             viewReportDialog = getLayoutInflater().inflate(R.layout.report_dialog_layout, null);
             dialogPlaceReport.setView(viewReportDialog).create();
-            dialogPlaceReport.setTitle("Report Information");
             alertDialog = dialogPlaceReport.show();
 
             btnCancelReport = (Button) viewReportDialog.findViewById(R.id.btnCancelReport);
