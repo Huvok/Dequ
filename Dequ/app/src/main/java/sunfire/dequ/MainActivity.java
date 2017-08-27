@@ -30,6 +30,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -203,6 +204,8 @@ public class MainActivity
 
     //------------------------------------------------------------------------------------------------------------------
     //                                                      //METHODS
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
