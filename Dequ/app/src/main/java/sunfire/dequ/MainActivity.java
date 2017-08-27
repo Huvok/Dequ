@@ -863,13 +863,26 @@ public class MainActivity
             {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    Intent intent = new Intent(getBaseContext(), ReportInfoActivity.class);
+                    Intent intent;
+                    if (jsonObject.getString("has_event").equals("true"))
+                    {
+                        intent = new Intent(getBaseContext(), JoinEventReportActivity.class);
+                    }
+                    else
+                    {
+                        intent = new Intent(getBaseContext(), ReportInfoActivity.class);
+                    }
+
                     intent.putExtra("report", jsonObject.getString("_id"));
                     intent.putExtra("title", jsonObject.getString("title"));
                     intent.putExtra("type", jsonObject.getString("type"));
                     intent.putExtra("level", jsonObject.getString("level"));
                     intent.putExtra("image", jsonObject.getString("image"));
                     intent.putExtra("description", jsonObject.getString("description"));
+                    intent.putExtra("create_date", jsonObject.get("create_date").toString());
+                    intent.putExtra("latitude", jsonObject.getString("latitude"));
+                    intent.putExtra("longitude", jsonObject.getString("longitude"));
+                    intent.putExtra("has_event", jsonObject.getString("has_event"));
 
                     startActivity(intent);
                 } catch (JSONException e) {

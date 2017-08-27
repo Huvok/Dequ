@@ -76,7 +76,6 @@
             android:ems="10"
             android:textSize="22sp"
             android:text="@string/info_report_level" />
-
     </LinearLayout>
 
     <TextView
@@ -117,19 +116,19 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".15"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        tools:context="sunfire.dequ.MainActivity">
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:orientation="horizontal"
+                  tools:context="sunfire.dequ.MainActivity"
+                  android:layout_weight=".13"
+                  android:weightSum="1">
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".1">
-
+            android:layout_weight=".1"
+            android:layout_height="match_parent">
         </LinearLayout>
 
         <Button
@@ -140,27 +139,19 @@
             android:text="@string/btn_cancel_event"
             android:drawableTop="@drawable/ic_cancel_black_24px"/>
 
-
-        <RelativeLayout
+        
+        <Button
+            android:id="@+id/btnCreateFbEvent"
             android:layout_width="0dp"
+            android:layout_weight=".4"
             android:layout_height="match_parent"
-            android:layout_weight=".4">
+            android:text="@string/btn_create_event" />
 
-            <Button
-                android:id="@+id/btnCreateFbEvent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/btn_create_event" />
-
-            <Button
-                android:id="@+id/btnJoinEvent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/btn_join_event"
-                android:drawableTop="@drawable/ic_group_add_black_24px"/>
-
-
-        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight=".1"
+            android:layout_height="match_parent">
+        </LinearLayout>
 
     </LinearLayout>
 

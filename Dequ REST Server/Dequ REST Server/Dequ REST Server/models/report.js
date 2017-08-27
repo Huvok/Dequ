@@ -60,12 +60,18 @@ module.exports.addReport = function(report, callback) {
 // Update Report
 module.exports.updateReport = function(id, report, options, callback) {
 	var query = {_id: id};
-	var update = {
-		type: report.type,
-		level: report.level,
+    var update = {
+        user_id: report.user_id,
+        title: report.title,
+        type: report.type,
+        level: report.level,
         description: report.description,
         latitude: report.latitude,
         longitude: report.longitude,
+<<<<<<< HEAD
+=======
+        create_date: report.create_date,
+>>>>>>> d5d9a84ffb020f9759d3f4a35b8eafa432604734
         has_event: report.has_event
 	}
 	

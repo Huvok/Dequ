@@ -40,9 +40,8 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="@string/report_event_date_start"/>
-
-        <Button
+            android:text="@string/report_event_date_start" />
+<Button
             android:id="@+id/btnDate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
