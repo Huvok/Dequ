@@ -27,6 +27,18 @@ var eventSchema = mongoose.Schema({
         type: Date,
         required: true
     },
+    event_origin: {
+        type: String,
+        required: true
+    },
+    FB_id: {
+        type: String,
+        default: "N/A"
+    },
+    attending: {
+        type: Array,
+        default: []
+    },
     create_date: {
         type: Date,
         default: Date.now
@@ -47,6 +59,7 @@ module.exports.getEventByReport = function (id, callback) {
 // Add Event
 module.exports.addEvent = function (event, callback) {
     event.due_date = new Date(event.due_date);
+    event.attending = [event.user_id];
     Event.create(event, callback);
 }
 
