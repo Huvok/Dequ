@@ -294,6 +294,7 @@ public class ReportInfoActivity
         }
         return new Intent(Intent.ACTION_VIEW, uri);
     }
+
     //==================================================================================================================
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
