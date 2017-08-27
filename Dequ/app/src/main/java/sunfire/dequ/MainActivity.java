@@ -149,6 +149,7 @@ public class MainActivity
     Button btnChooseImage;
     Button btnOnOffMarkers;
     Button btnProfile;
+    Button btnEventFilter;
     boolean boolAreMarkersVisible;
     AlertDialog.Builder dialogPlaceReport;
     AlertDialog alertDialog;
@@ -277,12 +278,14 @@ public class MainActivity
             btnPlaceReport = (Button) findViewById(R.id.btnPlaceReport);
             btnOnOffMarkers = (Button) findViewById(R.id.btnOnOffMarkers);
             btnProfile = (Button) findViewById(R.id.btnMyProfile);
+            btnEventFilter = (Button) findViewById(R.id.btnEvent);
 
             imgBtnSettings.setOnClickListener(this);
             btnPlaceReport.setOnClickListener(this);
             btnReport.setOnClickListener(this);
             btnOnOffMarkers.setOnClickListener(this);
             btnProfile.setOnClickListener(this);
+            btnEventFilter.setOnClickListener(this);
 
             imgViewPin.setVisibility(View.INVISIBLE);
             btnPlaceReport.setVisibility(View.INVISIBLE);
@@ -296,8 +299,6 @@ public class MainActivity
 
             //Progress Bar
             progressBarExperience = (ProgressBar) findViewById(R.id.progressBarExp);
-            progressBarExperience.setMax(100);
-            progressBarExperience.setProgress(0);
         }
     }
 
@@ -346,6 +347,7 @@ public class MainActivity
                 bmp.compress(Bitmap.CompressFormat.JPEG, 30, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                updateProgress();
             }
             else if (requestCode == 0)
             {
@@ -360,6 +362,7 @@ public class MainActivity
                 bmp.compress(Bitmap.CompressFormat.JPEG, 30, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                updateProgress();
             }
 
             HashMap<String, String> mapHeaders = new HashMap<String, String>();
@@ -388,6 +391,48 @@ public class MainActivity
             tileOverlay.clearTileCache();
             alertDialog.dismiss();
         }
+    }
+
+    public void updateProgress()
+    {
+        if(String.valueOf(spinnerReportLevel.getSelectedItemPosition()) == "0"){
+            if(progressBarExperience.getProgress() + progressCalm < progressBarExperience.getMax())
+                progressBarExperience.incrementProgressBy(progressCalm);
+            else{
+                currentLevel += 1;
+                progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                progressBarExperience.setMax((currentLevel) * 100);
+            }
+        }
+        else if(String.valueOf(spinnerReportLevel.getSelectedItemPosition()) == "1"){
+            if(progressBarExperience.getProgress() + progressMedium < progressBarExperience.getMax())
+                progressBarExperience.incrementProgressBy(progressMedium);
+            else{
+                currentLevel += 1;
+                progressBarExperience.setProgress(progressBarExperience.getProgress() + progressMedium - progressBarExperience.getMax());
+                progressBarExperience.setMax((currentLevel) * 100);
+            }
+        }
+        else if(String.valueOf(spinnerReportLevel.getSelectedItemPosition()) == "2"){
+            if(progressBarExperience.getProgress() + progressImportant < progressBarExperience.getMax())
+                progressBarExperience.incrementProgressBy(progressImportant);
+            else{
+                currentLevel += 1;
+                progressBarExperience.setProgress(progressBarExperience.getProgress() + progressImportant - progressBarExperience.getMax());
+                progressBarExperience.setMax((currentLevel) * 100);
+            }
+        }
+        else{
+            if(progressBarExperience.getProgress() + progressUrgent < progressBarExperience.getMax())
+                progressBarExperience.incrementProgressBy(progressUrgent);
+            else{
+                currentLevel += 1;
+                progressBarExperience.setProgress(progressBarExperience.getProgress() + progressUrgent - progressBarExperience.getMax());
+                progressBarExperience.setMax((currentLevel) * 100);
+            }
+        }
+        txtViewUserLevelAndExp.setText("Level: " + String.valueOf(currentLevel) + "    " +
+                String.valueOf(progressBarExperience.getProgress()) + " / " + String.valueOf(progressBarExperience.getMax()));
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -556,45 +601,6 @@ public class MainActivity
             else
             {
                 SelectImage();
-                if(String.valueOf(spinnerReportLevel) == "Calm"){
-                    //TODO si sube de nivel
-                    if(progressBarExperience.getProgress() + progressCalm < progressBarExperience.getMax())
-                        progressBarExperience.incrementProgressBy(progressCalm);
-                    else{
-                        currentLevel += 1;
-                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
-                        progressBarExperience.setMax((currentLevel+1) * 100);
-                    }
-                }
-                else if(String.valueOf(spinnerReportLevel) == "Medium"){
-                    if(progressBarExperience.getProgress() + progressMedium < progressBarExperience.getMax())
-                        progressBarExperience.incrementProgressBy(progressMedium);
-                    else{
-                        currentLevel += 1;
-                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
-                        progressBarExperience.setMax((currentLevel+1) * 100);
-                    }
-                }
-                else if(String.valueOf(spinnerReportLevel) == "Important"){
-                    if(progressBarExperience.getProgress() + progressImportant < progressBarExperience.getMax())
-                        progressBarExperience.incrementProgressBy(progressImportant);
-                    else{
-                        currentLevel += 1;
-                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
-                        progressBarExperience.setMax((currentLevel+1) * 100);
-                    }
-                }
-                else{
-                    if(progressBarExperience.getProgress() + progressUrgent < progressBarExperience.getMax())
-                        progressBarExperience.incrementProgressBy(progressUrgent);
-                    else{
-                        currentLevel += 1;
-                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
-                        progressBarExperience.setMax((currentLevel+1) * 100);
-                    }
-                }
-                txtViewUserLevelAndExp.setText("Level: " + String.valueOf(currentLevel) + "    " +
-                        String.valueOf(progressBarExperience.getProgress()) + " / " + String.valueOf(progressBarExperience.getMax()));
             }
         }
         else if (view.getId() == R.id.btnOnOffMarkers)
@@ -617,7 +623,19 @@ public class MainActivity
         {
             Intent intent;
             intent = new Intent(getBaseContext(), UserProfile.class);
+            intent.putExtra("Level", currentLevel);
+            intent.putExtra("Progress", progressBarExperience.getProgress());
+            intent.putExtra("Max", progressBarExperience.getMax());
             startActivity(intent);
+        }
+        else if(view.getId() == R.id.btnEvent)
+        {
+            //Creating the instance of PopupMenu
+            PopupMenu popup = new PopupMenu(MainActivity.this, imgBtnSettings);
+            //Inflating the Popup using xml file
+            popup.getMenuInflater().inflate(R.menu.filter_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
         }
 
     }
@@ -632,6 +650,62 @@ public class MainActivity
         else if (item.getItemId() == R.id.menuBtnLogout)
         {
             subLogout(findViewById(R.id.viewMainActivity));
+        }
+        else if(item.getItemId() == R.id.garbage)
+        {
+            for (Marker marker : lstMarkers)
+                    {
+                if (marker.getSnippet().charAt(0) == 'G')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
+        }
+        else if(item.getItemId() == R.id.nature)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                if (marker.getSnippet().charAt(0) == 'N')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
+        }
+        else if(item.getItemId() == R.id.landmarks_and_places)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                if (marker.getSnippet().charAt(0) == 'L')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
+        }
+        else if(item.getItemId() == R.id.other)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                if (marker.getSnippet().charAt(0) == 'O')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
         }
         return true;
     }
@@ -925,7 +999,6 @@ public class MainActivity
                                     " / " + jsonobject.getString("level")).
                                     icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                         }
-
                         marker.setVisible(false);
                         marker.setTag(jsonobject.getString("_id"));
                         lstMarkers.add(marker);
@@ -986,7 +1059,7 @@ public class MainActivity
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         currentLevel = Integer.parseInt(jsonObject.getString("level"));
-                        progressBarExperience.setMax((currentLevel+1) * 100);
+                        progressBarExperience.setMax((currentLevel) * 100);
                         progressBarExperience.setProgress(Integer.parseInt(jsonObject.getString("experience")));
                         txtViewUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
                         txtViewUserLevelAndExp.setText("Level: " + String.valueOf(currentLevel) + "    " +
@@ -1005,11 +1078,11 @@ public class MainActivity
                         jsonObjectNewReport.put("user_id", profile.getId());
                         jsonObjectNewReport.put("name", profile.getFirstName());
                         jsonObjectNewReport.put("lastname", profile.getLastName());
-                        jsonObjectNewReport.put("level", 0);
+                        jsonObjectNewReport.put("level", 1);
                         jsonObjectNewReport.put("experience", 0);
                         progressBarExperience.setMax(100);
                         progressBarExperience.setProgress(0);
-                        currentLevel = 0;
+                        currentLevel = 1;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

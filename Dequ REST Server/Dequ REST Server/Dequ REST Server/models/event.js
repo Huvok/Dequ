@@ -27,6 +27,18 @@ var eventSchema = mongoose.Schema({
         type: Date,
         required: true
     },
+    event_origin: {
+        type: String,
+        required: true
+    },
+    FB_id: {
+        type: String,
+        default: "N/A"
+    },
+    attending: {
+        type: Array,
+        default: []
+    },
     create_date: {
         type: Date,
         default: Date.now
@@ -47,21 +59,25 @@ module.exports.getEventByReport = function (id, callback) {
 // Add Event
 module.exports.addEvent = function (event, callback) {
     event.due_date = new Date(event.due_date);
+    event.attending = [event.user_id];
     Event.create(event, callback);
 }
 
 // Update User
-module.exports.updateEvent = function (id, event, options, callback) {
-    var query = { _id: id };
-    var update = {
-        report: event.report,
-        title: event.title,
-        people_needed: event.people_needed,
-        people_count: event.people_count,
-        due_date: event.due_date
-    }
+module.exports.updateEvent = function (old_id, user_id, options, callback) {
+    var query = { _id: old_id };
 
-    Event.findOneAndUpdate(query, update, options, callback);
+    Event.findOne(query, function (err, event) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            event.people_count = event.people_count + 1;
+            event.attending.push(user_id);
+            event.markModified('object');
+            event.save(callback);
+        }
+    });
 }
 
 // Delete User

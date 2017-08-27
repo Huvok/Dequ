@@ -4,18 +4,27 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.Profile;
+import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -59,6 +68,11 @@ public class JoinEventReportActivity
     //Bitmap
     byte[] decodedString;
     Bitmap bitmap;
+    Button btnSeeAttendance;
+    AlertDialog alertDialog;
+    Button btnCloseAttendance;
+    ArrayList<String> lstAttendanceIds = new ArrayList<String>();
+    String strEventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +81,6 @@ public class JoinEventReportActivity
         //Get instance info
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        //TODO Debería checar que el intent no sea NULL?
         //Asignar al objeto
         txtName = (TextView) findViewById(R.id.txtViewJoinEventTitle);
         txtDescription = (TextView) findViewById(R.id.txtViewJoinEventDescription);
@@ -90,6 +103,13 @@ public class JoinEventReportActivity
         //Botones
         btnCancelJoin.setOnClickListener(this);
         btnJoinEvent.setOnClickListener(this);
+        btnSeeAttendance = (Button) findViewById(R.id.btnSeeAtendance);
+        btnSeeAttendance.setOnClickListener(this);
+
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        new JoinEventReportActivity.RESTGetTask("EventByReportForList", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
+                getIntent().getExtras().getString("report"), null, map).execute();
     }
 
     @Override
@@ -102,6 +122,53 @@ public class JoinEventReportActivity
             map.put("Content-Type", "application/json");
             new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
                 getIntent().getExtras().getString("report"), null, map).execute();
+        }
+        else if (view.getId() == R.id.btnSeeAtendance)
+        {
+            AlertDialog.Builder dialogPlaceReport = new AlertDialog.Builder(this);
+
+            View viewReportDialog = getLayoutInflater().inflate(R.layout.attendance_dialog, null);
+            final LinearLayout layoutScrollView = (LinearLayout) viewReportDialog.findViewById(R.id.layoutScrollView);
+
+            for (String str : lstAttendanceIds)
+            {
+                final String id = str;
+                new GraphRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        "/" + str,
+                        null,
+                        HttpMethod.GET,
+                        new GraphRequest.Callback() {
+                            public void onCompleted(GraphResponse response) {
+                                LinearLayout ly = new LinearLayout(JoinEventReportActivity.this);
+                                ProfilePictureView profilePictureView = new ProfilePictureView(JoinEventReportActivity.this);
+                                profilePictureView.setProfileId(id);
+                                TextView textView = new TextView(JoinEventReportActivity.this);
+                                try {
+                                    textView.setText(response.getJSONObject().getString("name"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                textView.setPadding(50, 50, 0, 0);
+                                profilePictureView.setPadding(20, 0, 0, 0);
+                                ly.addView(profilePictureView);
+                                ly.addView(textView);
+                                layoutScrollView.addView(ly);
+                            }
+                        }
+                ).executeAsync();
+            }
+
+            dialogPlaceReport.setView(viewReportDialog).create();
+            dialogPlaceReport.setTitle("Attendance");
+            alertDialog = dialogPlaceReport.show();
+
+            btnCloseAttendance = (Button) viewReportDialog.findViewById(R.id.btnCloseAttendance);
+            btnCloseAttendance.setOnClickListener(this);
+        }
+        else if (view.getId() == R.id.btnCloseAttendance)
+        {
+            alertDialog.dismiss();
         }
     }
 
@@ -160,9 +227,25 @@ public class JoinEventReportActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject jsonObjectToUpdate = new JSONObject();
+                    strEventId = jsonObject.getString("_id");
                     jsonObjectToUpdate.put("event", jsonObject.getString("_id"));
                     new JoinEventReportActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/user/event?id=" +
                             Profile.getCurrentProfile().getId(), mapHeaders, jsonObjectToUpdate, "Event").execute();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (this.strTaskCode.equals("EventByReportForList"))
+            {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray jsonArray = jsonObject.getJSONArray("attending");
+
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        lstAttendanceIds.add(jsonArray.getString(i));
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -269,6 +352,18 @@ public class JoinEventReportActivity
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
+
+            if (this.strTaskCode.equals("Event"))
+            {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("user_id", Profile.getCurrentProfile().getId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                new JoinEventReportActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/event?id=" +
+                            strEventId, mapHeaders, jsonObject, "UpdateEvent").execute();
+            }
 
             if (progressDialog != null)
             {

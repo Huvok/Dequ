@@ -110,7 +110,20 @@ app.put('/api/user/event', function (req, res) {
             throw err;
         }
         else {
-            res.json(user);
+            res.json(id);
+        }
+    });
+});
+
+app.put('/api/event', function (req, res) {
+    var id = req.query.id;
+    var user_id = req.body.user_id;
+    Event.updateEvent(id, user_id, {}, function (err, event) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(event);
         }
     });
 });
