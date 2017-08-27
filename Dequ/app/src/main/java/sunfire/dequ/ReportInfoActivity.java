@@ -194,6 +194,7 @@ public class ReportInfoActivity
                                                     "Cancel"};
                                             final String name = jsonArray.getJSONObject(0).getString("name");
                                             final String date = jsonArray.getJSONObject(0).getString("start_time");
+                                            final String eventId = jsonArray.getJSONObject(0).getString("id");
                                             AlertDialog.Builder builder = new AlertDialog.Builder(ReportInfoActivity.this);
                                             builder.setTitle("Link to Facebook event");
                                             builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -213,6 +214,8 @@ public class ReportInfoActivity
                                                             jsonObjectNewReport.put("people_needed", 3);
                                                             jsonObjectNewReport.put("people_count", 1);
                                                             jsonObjectNewReport.put("due_date", date);
+                                                            jsonObjectNewReport.put("event_origin", "FB");
+                                                            jsonObjectNewReport.put("FB_id", eventId);
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
@@ -254,6 +257,8 @@ public class ReportInfoActivity
                 jsonObjectNewReport.put("people_needed", Integer.parseInt(edTxtNeeded.getText().toString()));
                 jsonObjectNewReport.put("people_count", 1);
                 jsonObjectNewReport.put("due_date", setEventTime);
+                jsonObjectNewReport.put("event_origin", "Dequ");
+                jsonObjectNewReport.put("FB_id", "N/A");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
