@@ -189,6 +189,13 @@ public class MainActivity
     public static final Gradient ALT_HEATMAP_GRADIENT = new Gradient(ALT_HEATMAP_GRADIENT_COLORS,
             ALT_HEATMAP_GRADIENT_START_POINTS);
 
+    //Progress
+    int progressCalm = 5;
+    int progressMedium = 10;
+    int progressImportant = 15;
+    int progressUrgent = 20;
+
+
     //------------------------------------------------------------------------------------------------------------------
     //                                                      //METHODS
     @Override
@@ -270,6 +277,11 @@ public class MainActivity
             txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
             txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
             boolAreMarkersVisible = false;
+
+            //Progress Bar
+            progressBarExperience = (ProgressBar) findViewById(R.id.progressBarExp);
+            progressBarExperience.setMax(100);
+            progressBarExperience.setProgress(0);
         }
     }
 
@@ -529,6 +541,24 @@ public class MainActivity
             else
             {
                 SelectImage();
+                if(String.valueOf(spinnerReportLevel) == "Calm"){
+                    //TODO si sube de nivel
+                    if(progressBarExperience.getProgress() + progressCalm <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressCalm);
+                }
+                else if(String.valueOf(spinnerReportLevel) == "Medium"){
+                    if(progressBarExperience.getProgress() + progressMedium <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressMedium);
+                }
+                else if(String.valueOf(spinnerReportLevel) == "Important"){
+                    if(progressBarExperience.getProgress() + progressImportant <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressImportant);
+                }
+                else{
+                    if(progressBarExperience.getProgress() + progressUrgent <= progressBarExperience.getMax())
+                        progressBarExperience.incrementProgressBy(progressUrgent);
+                }
+
             }
         }
         else if (view.getId() == R.id.btnOnOffMarkers)
