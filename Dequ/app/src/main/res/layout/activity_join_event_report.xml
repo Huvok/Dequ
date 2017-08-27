@@ -114,14 +114,37 @@ android:weightSum="1">
     android:gravity="center"
     android:text="@string/info_report_description"
     android:textSize="22sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-<Button
-    android:id="@+id/btnSeeAtendance"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight=".1"
-    android:text="See Attendance"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:orientation="vertical"
+            android:weightSum="1">
+        </LinearLayout>
 
+        <Button
+            android:id="@+id/btnSeeAtendance"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="See Attendance"
+            android:layout_weight=".8"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:orientation="vertical"
+            android:weightSum="1">
+        </LinearLayout>
+
+    </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"

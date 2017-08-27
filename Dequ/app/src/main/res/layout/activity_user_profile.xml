@@ -161,7 +161,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_weight=".03"
             android:orientation="horizontal"
             android:weightSum="1"
@@ -180,14 +180,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.40"
-                android:text="@string/cancel_button" />
+                android:text="@string/cancel_button"
+                android:drawableTop="@drawable/ic_cancel_black_24px"/>
 
             <Button
                 android:id="@+id/btnLogOutUserProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.40"
-                android:text="@string/logout_button" />
+                android:text="@string/logout_button"
+                android:drawableTop="@drawable/ic_exit_to_app_24px"/>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

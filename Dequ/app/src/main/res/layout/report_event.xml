@@ -17,7 +17,8 @@
             android:layout_weight=".5"
             android:gravity="center"
             android:text="@string/report_event_name"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
 
         <EditText
             android:id="@+id/edTxtReportEventTitle"
@@ -42,7 +43,8 @@
             android:layout_weight=".5"
             android:gravity="center"
             android:text="@string/report_event_date_start"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/btnDate"
@@ -65,7 +67,8 @@
             android:layout_weight=".5"
             android:gravity="center"
             android:text="@string/report_event_hour_start"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/btnHour"
@@ -88,7 +91,8 @@
             android:layout_weight=".5"
             android:gravity="center"
             android:text="People needed"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
 
         <EditText
             android:id="@+id/edTxtPeopleNeeded"
@@ -96,7 +100,8 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:ems="10"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textColor="@android:color/black"/>
 
     </LinearLayout>
 
