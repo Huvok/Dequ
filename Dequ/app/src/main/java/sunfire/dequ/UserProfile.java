@@ -2,6 +2,7 @@ package sunfire.dequ;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -186,15 +187,20 @@ public class UserProfile
                             jsonObject.getString("title"), jsonObject.getInt("people_needed"), jsonObject.getInt("people_count"),
                             jsonObject.getString("due_date"), jsonObject.getString("create_date"));
                     lstCreatedEvents.add(e);
+                    LinearLayout ly = new LinearLayout(UserProfile.this);
+                    ly.setOrientation(LinearLayout.VERTICAL);
                     TextView textView = new TextView(UserProfile.this);
-                    lstViewCreatedEvents.add(textView);
-                    int i = lstViewCreatedEvents.size() - 1;
-                    lstViewCreatedEvents.get(i).setText((lstCreatedEvents.get(i).strTitle + "\r\n Created: " +
-                            lstCreatedEvents.get(i).strCreateDate + "\r\n Scheduled: " + lstCreatedEvents.get(i).strDueDate
-                            + "\r\n # People: " + String.valueOf(lstCreatedEvents.get(i).intPeopleCount) + "\r\n People needed: " +
-                            String.valueOf(lstCreatedEvents.get(i).intPeopleNeeded) + "\r\n Description: " +
-                            lstCreatedEvents.get(i).strReport));
-                    layoutCreatedEvents.addView(lstViewCreatedEvents.get(i));
+                    TextView textTitle = new TextView(UserProfile.this);
+                    textTitle.setText(e.strTitle);
+                    textTitle.setTypeface(null, Typeface.BOLD);
+                    textTitle.setPadding(50, 0, 0, 0);
+                    ly.addView(textTitle);
+                    textView.setText(("Scheduled on: " + e.strDueDate
+                            + "\r\nPeople Needed: " + String.valueOf(e.intPeopleNeeded)
+                            + "\r\nRegistered Count: " + String.valueOf(e.intPeopleCount) + "\r\n"));
+                    textView.setPadding(50, 0, 0, 0);
+                    ly.addView(textView);
+                    layoutCreatedEvents.addView(ly);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -207,15 +213,20 @@ public class UserProfile
                             jsonObject.getString("title"), jsonObject.getInt("people_needed"), jsonObject.getInt("people_count"),
                             jsonObject.getString("due_date"), jsonObject.getString("create_date"));
                     lstEvents.add(e);
+                    LinearLayout ly = new LinearLayout(UserProfile.this);
+                    ly.setOrientation(LinearLayout.VERTICAL);
                     TextView textView = new TextView(UserProfile.this);
-                    lstViewEvents.add(textView);
-                    int i = lstViewEvents.size() - 1;
-                    lstViewEvents.get(i).setText((lstEvents.get(i).strTitle + "\r\n Created: " +
-                            lstEvents.get(i).strCreateDate + "\r\n Scheduled: " + lstEvents.get(i).strDueDate
-                            + "\r\n # People: " + String.valueOf(lstEvents.get(i).intPeopleCount) + "\r\n People needed: " +
-                            String.valueOf(lstEvents.get(i).intPeopleNeeded) + "\r\n Description: " +
-                            lstEvents.get(i).strReport));
-                    layoutEvents.addView(lstViewEvents.get(i));
+                    TextView textTitle = new TextView(UserProfile.this);
+                    textTitle.setText(e.strTitle);
+                    textTitle.setTypeface(null, Typeface.BOLD);
+                    textTitle.setPadding(50, 0, 0, 0);
+                    ly.addView(textTitle);
+                    textView.setText(("\r\nScheduled on: " + e.strDueDate
+                            + "\r\nPeople Needed: " + String.valueOf(e.intPeopleNeeded)
+                            + "\r\nRegistered Count: " + String.valueOf(e.intPeopleCount) + "\r\n"));
+                    textView.setPadding(50, 0, 0, 0);
+                    ly.addView(textView);
+                    layoutEvents.addView(ly);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

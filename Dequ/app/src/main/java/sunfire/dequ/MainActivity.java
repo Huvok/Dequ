@@ -903,15 +903,14 @@ public class MainActivity
                 lstHeatMap = new ArrayList<WeightedLatLng>();
                 JSONArray jsonarray = null;
                 lstMarkers = new ArrayList<Marker>();
-                int count = 1;
+                lstHeatMap.add(new WeightedLatLng(new LatLng(0, 0), 4));
                 try {
                     jsonarray = new JSONArray(result);
                     for (int i = 0; i < jsonarray.length(); i++) {
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
                         Double Lat = Double.parseDouble(jsonobject.getString("latitude"));
                         Double Lng = Double.parseDouble(jsonobject.getString("longitude"));
-                        lstHeatMap.add(new WeightedLatLng(new LatLng(Lat, Lng), count));
-                        count++;
+                        lstHeatMap.add(new WeightedLatLng(new LatLng(Lat, Lng), jsonobject.getInt("level") + 1));
                         Marker marker;
                         if (jsonobject.getString("has_event").equals("true"))
                         {

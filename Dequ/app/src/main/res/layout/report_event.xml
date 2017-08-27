@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="@string/report_event_name"/>
+            android:text="@string/report_event_name"
+            android:textSize="18sp"/>
 
         <EditText
             android:id="@+id/edTxtReportEventTitle"
@@ -40,8 +41,9 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="@string/report_event_date_start" />
-<Button
+            android:text="@string/report_event_date_start"
+            android:textSize="18sp"/>
+        <Button
             android:id="@+id/btnDate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -61,7 +63,8 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="@string/report_event_hour_start"/>
+            android:text="@string/report_event_hour_start"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btnHour"
@@ -69,6 +72,31 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:text="@string/report_event_hour_start"/>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="1">
+
+        <TextView
+            android:id="@+id/txtViewPeopleNeeded"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:text="People needed"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/edTxtPeopleNeeded"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:ems="10"
+            android:inputType="number"/>
+
     </LinearLayout>
 
     <EditText
