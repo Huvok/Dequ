@@ -106,7 +106,6 @@ public class ReportInfoActivity
         //Get instance info
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        //TODO Debería checar que el intent no sea NULL?
         //Asignar al objeto
         txtName = (TextView) findViewById(R.id.txtViewReportTitle);
         txtDescription = (TextView) findViewById(R.id.txtViewReportInfoDescription);

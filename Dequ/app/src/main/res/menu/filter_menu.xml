@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/garbage"
+        android:title="Garbage"/>
+
+    <item
+        android:id="@+id/nature"
+        android:title="Nature"/>
+
+    <item
+        android:id="@+id/landmarks_and_places"
+        android:title="Landmarks and Places"/>
+
+    <item
+        android:id="@+id/other"
+        android:title="Other"/>
+
+</menu>

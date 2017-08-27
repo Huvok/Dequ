@@ -149,6 +149,7 @@ public class MainActivity
     Button btnChooseImage;
     Button btnOnOffMarkers;
     Button btnProfile;
+    Button btnEventFilter;
     boolean boolAreMarkersVisible;
     AlertDialog.Builder dialogPlaceReport;
     AlertDialog alertDialog;
@@ -277,12 +278,14 @@ public class MainActivity
             btnPlaceReport = (Button) findViewById(R.id.btnPlaceReport);
             btnOnOffMarkers = (Button) findViewById(R.id.btnOnOffMarkers);
             btnProfile = (Button) findViewById(R.id.btnMyProfile);
+            btnEventFilter = (Button) findViewById(R.id.btnEvent);
 
             imgBtnSettings.setOnClickListener(this);
             btnPlaceReport.setOnClickListener(this);
             btnReport.setOnClickListener(this);
             btnOnOffMarkers.setOnClickListener(this);
             btnProfile.setOnClickListener(this);
+            btnEventFilter.setOnClickListener(this);
 
             imgViewPin.setVisibility(View.INVISIBLE);
             btnPlaceReport.setVisibility(View.INVISIBLE);
@@ -599,8 +602,6 @@ public class MainActivity
             else
             {
                 SelectImage();
-                //TODO level up hack
-
             }
         }
         else if (view.getId() == R.id.btnOnOffMarkers)
@@ -628,6 +629,15 @@ public class MainActivity
             intent.putExtra("Max", progressBarExperience.getMax());
             startActivity(intent);
         }
+        else if(view.getId() == R.id.btnEvent)
+        {
+            //Creating the instance of PopupMenu
+            PopupMenu popup = new PopupMenu(MainActivity.this, imgBtnSettings);
+            //Inflating the Popup using xml file
+            popup.getMenuInflater().inflate(R.menu.filter_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
+        }
 
     }
 
@@ -641,6 +651,62 @@ public class MainActivity
         else if (item.getItemId() == R.id.menuBtnLogout)
         {
             subLogout(findViewById(R.id.viewMainActivity));
+        }
+        else if(item.getItemId() == R.id.garbage)
+        {
+            for (Marker marker : lstMarkers)
+                    {
+                if (marker.getSnippet().charAt(0) == 'G')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
+        }
+        else if(item.getItemId() == R.id.nature)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                if (marker.getSnippet().charAt(0) == 'N')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
+        }
+        else if(item.getItemId() == R.id.landmarks_and_places)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                if (marker.getSnippet().charAt(0) == 'L')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
+        }
+        else if(item.getItemId() == R.id.other)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                if (marker.getSnippet().charAt(0) == 'O')
+                {
+                    marker.setVisible(true);
+                }
+                else
+                {
+                    marker.setVisible(false);
+                }
+            }
         }
         return true;
     }
@@ -934,7 +1000,6 @@ public class MainActivity
                                     " / " + jsonobject.getString("level")).
                                     icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                         }
-
                         marker.setVisible(false);
                         marker.setTag(jsonobject.getString("_id"));
                         lstMarkers.add(marker);
@@ -994,8 +1059,7 @@ public class MainActivity
                 {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
-                        //TODO Quitar parche +1
-                        currentLevel = Integer.parseInt(jsonObject.getString("level")) +1;
+                        currentLevel = Integer.parseInt(jsonObject.getString("level"));
                         progressBarExperience.setMax((currentLevel) * 100);
                         progressBarExperience.setProgress(Integer.parseInt(jsonObject.getString("experience")));
                         txtViewUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
