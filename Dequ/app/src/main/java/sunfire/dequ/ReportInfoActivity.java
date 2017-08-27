@@ -238,7 +238,7 @@ public class ReportInfoActivity
             alertDialog.dismiss();
             //Subir la info al servidor
             setEventDescription = edtxtEventDescription.toString();
-            setEventTitle = edtxtEventTitle.toString();
+            setEventTitle = edtxtEventTitle.getText().toString();
             setEventTime = setEventDay + "T" + setEventHour + ":00.000Z";
 
             HashMap<String, String> mapHeaders = new HashMap<String, String>();
@@ -246,7 +246,7 @@ public class ReportInfoActivity
 
             JSONObject jsonObjectNewReport = new JSONObject();
             try {
-                jsonObjectNewReport.put("report", getIntent().getExtras().get("title"));
+                jsonObjectNewReport.put("report", getIntent().getExtras().get("report"));
                 jsonObjectNewReport.put("user_id", Profile.getCurrentProfile().getId());
                 jsonObjectNewReport.put("title", setEventTitle);
                 jsonObjectNewReport.put("people_needed", 3);

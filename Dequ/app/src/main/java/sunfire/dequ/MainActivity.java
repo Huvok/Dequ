@@ -195,7 +195,7 @@ public class MainActivity
     int progressCalm = 5;
     int progressMedium = 10;
     int progressImportant = 15;
-    int progressUrgent = 20;
+    int progressUrgent = 80;
 
     TextView txtViewUserName;
     TextView txtViewUserLevelAndExp;
@@ -556,7 +556,7 @@ public class MainActivity
                 SelectImage();
                 if(String.valueOf(spinnerReportLevel) == "Calm"){
                     //TODO si sube de nivel
-                    if(progressBarExperience.getProgress() + progressCalm <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressCalm < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressCalm);
                     else{
                         currentLevel += 1;
@@ -565,7 +565,7 @@ public class MainActivity
                     }
                 }
                 else if(String.valueOf(spinnerReportLevel) == "Medium"){
-                    if(progressBarExperience.getProgress() + progressMedium <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressMedium < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressMedium);
                     else{
                         currentLevel += 1;
@@ -574,7 +574,7 @@ public class MainActivity
                     }
                 }
                 else if(String.valueOf(spinnerReportLevel) == "Important"){
-                    if(progressBarExperience.getProgress() + progressImportant <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressImportant < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressImportant);
                     else{
                         currentLevel += 1;
@@ -583,7 +583,7 @@ public class MainActivity
                     }
                 }
                 else{
-                    if(progressBarExperience.getProgress() + progressUrgent <= progressBarExperience.getMax())
+                    if(progressBarExperience.getProgress() + progressUrgent < progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressUrgent);
                     else{
                         currentLevel += 1;
@@ -613,15 +613,9 @@ public class MainActivity
         }
         else if (view.getId() == R.id.btnMyProfile)
         {
-            //TODO pasar datos de json al intent
-            /*JSONObject jsonObject = new JSONObject(result);
             Intent intent;
             intent = new Intent(getBaseContext(), UserProfile.class);
-            intent.putExtra("report", jsonObject.getString("_id"));
-            intent.putExtra("title", jsonObject.getString("title"));
-            intent.putExtra("has_event", jsonObject.getString("has_event"));
-
-            startActivity(intent);*/
+            startActivity(intent);
         }
 
     }
@@ -990,7 +984,6 @@ public class MainActivity
                 {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
-                        //TODO /100
                         currentLevel = Integer.parseInt(jsonObject.getString("level"));
                         progressBarExperience.setMax((currentLevel+1) * 100);
                         progressBarExperience.setProgress(Integer.parseInt(jsonObject.getString("experience")));
