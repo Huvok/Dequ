@@ -15,7 +15,15 @@ var userSchema = mongoose.Schema({
 	lastname: {
 		type: String,
 		required: true
-	},
+    },
+    level: {
+        type: Number,
+        required: true
+    },
+    experience: {
+        type: Number,
+        required: true
+    },
 	create_date: {
 		type: Date,
 		default: Date.now
@@ -29,6 +37,10 @@ module.exports.getUsers = function(callback, limit) {
 	User.find(callback).limit(limit);
 }
 
+module.exports.getUser = function (id, callback) {
+    User.findOne({ 'user_id': id }, callback);
+}
+
 // Add User
 module.exports.addUser = function(user, callback) {
 	User.create(user, callback);
@@ -40,7 +52,9 @@ module.exports.updateUser = function(id, user, options, callback) {
     var update = {
         user_id: user.user_id,
 		name: user.name,
-		lastname: user.lastname
+        lastname: user.lastname,
+        level: user.level,
+        experience: user.experience
 	}
 
 	User.findOneAndUpdate(query, update, options, callback);

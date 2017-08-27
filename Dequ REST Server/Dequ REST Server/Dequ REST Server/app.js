@@ -62,6 +62,17 @@ app.get('/api/users', function (req, res) {
     });
 });
 
+app.get('/api/user', function (req, res) {
+    User.getUser(req.query.id, function (err, users) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(users);
+        }
+    });
+});
+
 app.post('/api/users', function(req, res) {
 	var user = req.body;
 	User.addUser(user, function(err, user) {

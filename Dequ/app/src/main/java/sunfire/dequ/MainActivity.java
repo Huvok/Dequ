@@ -237,6 +237,11 @@ public class MainActivity
                 profile = Profile.getCurrentProfile();
             }
 
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("Content-Type", "application/json");
+            new RESTGetTask("User", "http://" + getString(R.string.server_url) + "/api/report?id=" +
+                Profile.getCurrentProfile().getId(), null, map).execute();
+
             //                                              //We just have to actively check permissions since
             //                                              //      Marshmallow.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -785,6 +790,25 @@ public class MainActivity
             marker.getTag(), null, map).execute();
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        if (lstMarkers != null &&
+            lstMarkers.size() != 0)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                marker.remove();
+            }
+
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("Content-Type", "application/json");
+            new RESTGetTask("Reports", "http://" + getString(R.string.server_url) + "/api/reports", null, map).execute();
+        }
+    }
+
     //==================================================================================================================
     class RESTGetTask extends AsyncTask<String, Void, String>
     {
@@ -918,6 +942,10 @@ public class MainActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+            else if (this.strTaskCode.equals("User"))
+            {
+                
             }
 
             if (progressDialog != null)
