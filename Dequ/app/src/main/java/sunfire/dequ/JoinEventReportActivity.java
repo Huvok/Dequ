@@ -72,6 +72,7 @@ public class JoinEventReportActivity
     AlertDialog alertDialog;
     Button btnCloseAttendance;
     ArrayList<String> lstAttendanceIds = new ArrayList<String>();
+    String strEventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,7 @@ public class JoinEventReportActivity
 
             for (String str : lstAttendanceIds)
             {
+                final String id = str;
                 new GraphRequest(
                         AccessToken.getCurrentAccessToken(),
                         "/" + str,
@@ -141,7 +143,7 @@ public class JoinEventReportActivity
                             public void onCompleted(GraphResponse response) {
                                 LinearLayout ly = new LinearLayout(JoinEventReportActivity.this);
                                 ProfilePictureView profilePictureView = new ProfilePictureView(JoinEventReportActivity.this);
-                                profilePictureView.setProfileId(Profile.getCurrentProfile().getId());
+                                profilePictureView.setProfileId(id);
                                 TextView textView = new TextView(JoinEventReportActivity.this);
                                 try {
                                     textView.setText(response.getJSONObject().getString("name"));
@@ -226,6 +228,7 @@ public class JoinEventReportActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject jsonObjectToUpdate = new JSONObject();
+                    strEventId = jsonObject.getString("_id");
                     jsonObjectToUpdate.put("event", jsonObject.getString("_id"));
                     new JoinEventReportActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/user/event?id=" +
                             Profile.getCurrentProfile().getId(), mapHeaders, jsonObjectToUpdate, "Event").execute();
@@ -350,6 +353,18 @@ public class JoinEventReportActivity
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
+
+            if (this.strTaskCode.equals("Event"))
+            {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("user_id", Profile.getCurrentProfile().getId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                new JoinEventReportActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/event?id=" +
+                            strEventId, mapHeaders, jsonObject, "UpdateEvent").execute();
+            }
 
             if (progressDialog != null)
             {
