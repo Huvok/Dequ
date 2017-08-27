@@ -6,11 +6,12 @@
     <color name="emeraldColor">#f8ffcc</color>
     <color name="watermelonColor">#f2473f</color>
     <color name="emeraldcolor">#019875</color>
-    <color name="tryColor">#ffc068</color>
+    <color name="tryColor">#ef792f</color>
     <color name="anotherColor">#4086A3</color>
-    <color name="trytwoColor">#BED8D4</color>
+    <color name="trytwoColor">#f78f4f</color>
     <color name="btnColor">#cecc3d</color>
     <color name="cancelColor">#fcfcfc</color>
     <color name="alertColor">#7f18b26d</color>
     <color name="lesscolor">#efe66b</color>
+    <color name="trythreeColor">#f7a06a</color>
 </resources>
