@@ -118,8 +118,6 @@ public class ReportInfoActivity
         txtType.setText((String)bundle.get("type"));
         txtLevel.setText( (String)bundle.get("level"));
         txtDescription.setText( (String)bundle.get("description"));
-        txtLevel.setText((String)bundle.get("level"));
-        txtDescription.setText((String)bundle.get("description"));
         decodedString = Base64.decode( (String) bundle.get("image"), Base64.NO_WRAP);
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         bitmap = BitmapFactory.decodeStream(inputStream);
@@ -150,8 +148,6 @@ public class ReportInfoActivity
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
 
-                    if (items[i].equals("Create event from app"))
-                    {
                     if (items[i].equals("Create event from app")) {
                         //Saltar al otro layout
                         dialogPlaceEvent = new AlertDialog.Builder(ReportInfoActivity.this);
@@ -179,12 +175,6 @@ public class ReportInfoActivity
                     {
                         startActivity(newFacebookIntent(getPackageManager(),
                             "https://www.facebook.com/events/upcoming?ref=46&action_history=null"));
-                    }
-                    else if (items[i].equals("Link to a Facebook event"))
-                    {
-                    } else if (items[i].equals("Create event on Facebook")) {
-                        startActivity(newFacebookIntent(getPackageManager(),
-                                "https://www.facebook.com/events/upcoming?ref=46&action_history=null"));
                     } else if (items[i].equals("Link to a Facebook event")) {
                         new GraphRequest(
                                 AccessToken.getCurrentAccessToken(),
@@ -238,12 +228,13 @@ public class ReportInfoActivity
                         ).executeAsync();
                     }
                 }
-            }});
+            });
 
             builder.show();
 
 
         } else if (view.getId() == R.id.btnCreateOnAppEvent) {
+            alertDialog.dismiss();
             //Subir la info al servidor
             setEventDescription = edtxtEventDescription.toString();
             setEventTitle = edtxtEventTitle.toString();
@@ -266,9 +257,12 @@ public class ReportInfoActivity
 
             new ReportInfoActivity.RESTPostTask("http://" + getString(R.string.server_url) + "/api/event", mapHeaders, jsonObjectNewReport, "Event").execute();
         }
-        else if(view.getId() == R.id.btnCancelOnAppEvent){
+        else if(view.getId() == R.id.btnCancelOnAppEvent)
+        {
             alertDialog.dismiss();
-        } else if (view.getId() == R.id.btnHour) {
+        }
+        else if (view.getId() == R.id.btnHour)
+        {
             //Seleccionar hora
             DialogFragment newFragment = new TimePickerFragment();
             newFragment.show(getFragmentManager(), "timePicker");
@@ -551,7 +545,7 @@ public class ReportInfoActivity
                 progressDialog.dismiss();
             }
 
-
+            finish();
         }
 
         private String putData() throws IOException, JSONException

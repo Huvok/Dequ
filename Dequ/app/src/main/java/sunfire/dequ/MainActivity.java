@@ -755,6 +755,25 @@ public class MainActivity
             marker.getTag(), null, map).execute();
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        if (lstMarkers != null &&
+            lstMarkers.size() != 0)
+        {
+            for (Marker marker : lstMarkers)
+            {
+                marker.remove();
+            }
+
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("Content-Type", "application/json");
+            new RESTGetTask("Reports", "http://" + getString(R.string.server_url) + "/api/reports", null, map).execute();
+        }
+    }
+
     //==================================================================================================================
     class RESTGetTask extends AsyncTask<String, Void, String>
     {
