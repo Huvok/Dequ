@@ -1,6 +1,5 @@
 package sunfire.dequ;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -124,15 +123,10 @@ public class UserProfile
             this.strTaskCode = strTaskCode;
         }
 
-        ProgressDialog progressDialog;
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(UserProfile.this);
-            progressDialog.setMessage("Preparing to change the world...");
-            progressDialog.show();
         }
 
         @Override
@@ -236,10 +230,6 @@ public class UserProfile
                 }
             }
 
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
         }
 
         private String getData() throws IOException

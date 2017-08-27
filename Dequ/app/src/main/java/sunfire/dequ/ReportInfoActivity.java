@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -370,7 +369,6 @@ public class ReportInfoActivity
     //==================================================================================================================
     class RESTPostTask extends AsyncTask<String, Void, String>
     {
-        ProgressDialog progressDialog;
         private String strURL;
         private HashMap<String, String> mapHeaders;
         private JSONObject jsonObject;
@@ -393,10 +391,6 @@ public class ReportInfoActivity
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(ReportInfoActivity.this);
-            progressDialog.setMessage("Inserting data...");
-            progressDialog.show();
         }
 
         @Override
@@ -420,11 +414,6 @@ public class ReportInfoActivity
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
-
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
 
             try {
                 strCreatedEvent = new JSONObject(result).getString("_id");
@@ -505,7 +494,6 @@ public class ReportInfoActivity
     //==================================================================================================================
     class RESTPutTask extends AsyncTask<String, Void, String>
     {
-        ProgressDialog progressDialog;
         private String strURL;
         private HashMap<String, String> mapHeaders;
         private JSONObject jsonObject;
@@ -528,10 +516,6 @@ public class ReportInfoActivity
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(ReportInfoActivity.this);
-            progressDialog.setMessage("Updating data...");
-            progressDialog.show();
         }
 
         @Override
@@ -555,11 +539,6 @@ public class ReportInfoActivity
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
-
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
 
             if (this.strTaskCode.equals("Report"))
             {

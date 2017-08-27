@@ -1,6 +1,5 @@
 package sunfire.dequ;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -248,15 +247,10 @@ public class JoinEventReportActivity
             this.strTaskCode = strTaskCode;
         }
 
-        ProgressDialog progressDialog;
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(JoinEventReportActivity.this);
-            progressDialog.setMessage("Preparing to change the world...");
-            progressDialog.show();
         }
 
         @Override
@@ -305,11 +299,6 @@ public class JoinEventReportActivity
                     e.printStackTrace();
                 }
             }
-
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
         }
 
         private String getData() throws IOException
@@ -357,7 +346,6 @@ public class JoinEventReportActivity
     //==================================================================================================================
     class RESTPutTask extends AsyncTask<String, Void, String>
     {
-        ProgressDialog progressDialog;
         private String strURL;
         private HashMap<String, String> mapHeaders;
         private JSONObject jsonObject;
@@ -380,10 +368,6 @@ public class JoinEventReportActivity
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(JoinEventReportActivity.this);
-            progressDialog.setMessage("Updating data...");
-            progressDialog.show();
         }
 
         @Override
@@ -443,11 +427,6 @@ public class JoinEventReportActivity
                             }
                     ).executeAsync();
                 }
-            }
-
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
             }
 
             finish();

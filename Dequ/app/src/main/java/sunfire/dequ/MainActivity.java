@@ -4,7 +4,6 @@ package sunfire.dequ;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -941,15 +940,11 @@ public class MainActivity
             this.strTaskCode = strTaskCode;
         }
 
-        ProgressDialog progressDialog;
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
 
-            progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.setMessage("Preparing to change the world...");
-            progressDialog.show();
         }
 
         @Override
@@ -976,14 +971,13 @@ public class MainActivity
                 lstHeatMap = new ArrayList<WeightedLatLng>();
                 JSONArray jsonarray = null;
                 lstMarkers = new ArrayList<Marker>();
-                lstHeatMap.add(new WeightedLatLng(new LatLng(0, 0), 4));
                 try {
                     jsonarray = new JSONArray(result);
                     for (int i = 0; i < jsonarray.length(); i++) {
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
                         Double Lat = Double.parseDouble(jsonobject.getString("latitude"));
                         Double Lng = Double.parseDouble(jsonobject.getString("longitude"));
-                        lstHeatMap.add(new WeightedLatLng(new LatLng(Lat, Lng), jsonobject.getInt("level") + 1));
+                        lstHeatMap.add(new WeightedLatLng(new LatLng(Lat, Lng), jsonobject.getInt("level") + 2));
                         Marker marker;
                         if (jsonobject.getString("has_event").equals("true"))
                         {
@@ -1094,10 +1088,6 @@ public class MainActivity
                 }
             }
 
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
         }
 
         private String getData() throws IOException
@@ -1146,7 +1136,6 @@ public class MainActivity
     //==================================================================================================================
     class RESTPostTask extends AsyncTask<String, Void, String>
     {
-        ProgressDialog progressDialog;
         private String strURL;
         private HashMap<String, String> mapHeaders;
         private JSONObject jsonObject;
@@ -1169,10 +1158,6 @@ public class MainActivity
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.setMessage("Inserting data...");
-            progressDialog.show();
         }
 
         @Override
@@ -1197,10 +1182,6 @@ public class MainActivity
         {
             super.onPostExecute(result);
 
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
         }
 
         private String postData() throws IOException, JSONException
@@ -1255,16 +1236,11 @@ public class MainActivity
     //==================================================================================================================
     class PutDataTask extends AsyncTask<String, Void, String>
     {
-        ProgressDialog progressDialog;
 
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.setMessage("Updating data...");
-            progressDialog.show();
         }
 
         @Override
@@ -1288,11 +1264,6 @@ public class MainActivity
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
-
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
         }
 
         private String putData(String urlPath) throws IOException, JSONException
@@ -1351,16 +1322,10 @@ public class MainActivity
     //==================================================================================================================
     class DeleteDataTask extends AsyncTask<String, Void, String>
     {
-        ProgressDialog progressDialog;
-
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-
-            progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.setMessage("Deleting data...");
-            progressDialog.show();
         }
 
         @Override
@@ -1380,11 +1345,6 @@ public class MainActivity
         protected void onPostExecute(String result)
         {
             super.onPostExecute(result);
-
-            if (progressDialog != null)
-            {
-                progressDialog.dismiss();
-            }
         }
 
         private String deleteData(String urlPath) throws IOException
