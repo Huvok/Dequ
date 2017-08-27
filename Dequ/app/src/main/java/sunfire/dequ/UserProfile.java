@@ -48,7 +48,7 @@ public class UserProfile
     ScrollView scrollMyEvents;
     ScrollView scrollOtherEvents;
     ArrayList<Event> lstCreatedEvents, lstEvents;
-    ArrayList<TextView> lstViewCreatedEvents;
+    ArrayList<TextView> lstViewCreatedEvents = new ArrayList<TextView>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,22 +172,6 @@ public class UserProfile
                                 jsonArray.getString(i), null, map).execute();
                     }
 
-                    while(lstCreatedEvents.size() < jsonObject.getJSONArray("created_events").length() ||
-                            lstEvents.size() < jsonObject.getJSONArray("events").length() )
-                    {
-                        int i = 1;
-                    }
-
-                    for(int i = 0; i < lstCreatedEvents.size(); i++){
-                        lstViewCreatedEvents.add(new TextView(UserProfile.this));
-                        lstViewCreatedEvents.get(i).setText((lstCreatedEvents.get(i).strTitle + "\r\n Created: " +
-                                lstCreatedEvents.get(i).strCreateDate + "\r\n Scheduled: " + lstCreatedEvents.get(i).strDueDate
-                                + "\r\n # People: " + String.valueOf(lstCreatedEvents.get(i).intPeopleCount) + "\r\n People needed: " +
-                                String.valueOf(lstCreatedEvents.get(i).intPeopleNeeded) + "\r\n Description: " +
-                                lstCreatedEvents.get(i).strReport));
-                        scrollMyEvents.addView(lstViewCreatedEvents.get(i));
-                    }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -200,6 +184,15 @@ public class UserProfile
                             jsonObject.getString("title"), jsonObject.getInt("people_needed"), jsonObject.getInt("people_count"),
                             jsonObject.getString("due_date"), jsonObject.getString("create_date"));
                     lstCreatedEvents.add(e);
+                    TextView textView = new TextView(UserProfile.this);
+                    lstViewCreatedEvents.add(textView);
+                    int i = lstViewCreatedEvents.size() - 1;
+                    lstViewCreatedEvents.get(i).setText((lstCreatedEvents.get(i).strTitle + "\r\n Created: " +
+                            lstCreatedEvents.get(i).strCreateDate + "\r\n Scheduled: " + lstCreatedEvents.get(i).strDueDate
+                            + "\r\n # People: " + String.valueOf(lstCreatedEvents.get(i).intPeopleCount) + "\r\n People needed: " +
+                            String.valueOf(lstCreatedEvents.get(i).intPeopleNeeded) + "\r\n Description: " +
+                            lstCreatedEvents.get(i).strReport));
+                    scrollMyEvents.addView(lstViewCreatedEvents.get(i));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
