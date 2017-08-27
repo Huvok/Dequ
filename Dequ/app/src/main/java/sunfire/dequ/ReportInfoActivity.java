@@ -145,7 +145,7 @@ public class ReportInfoActivity
         //Crear evento de fb
         else if (view.getId() == R.id.btnCreateFbEvent) {
             final CharSequence[] items = {"Create event from app", "Create event on Facebook",
-                    "Link to a Facebook event", "Cancel"};
+                "Link to a Facebook event", "Cancel"};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ReportInfoActivity.this);
             builder.setTitle("How will you create the event?");
@@ -211,7 +211,6 @@ public class ReportInfoActivity
                                                         JSONObject jsonObjectNewReport = new JSONObject();
                                                         try {
                                                             jsonObjectNewReport.put("report", getIntent().getExtras().get("title"));
-                                                            ;
                                                             jsonObjectNewReport.put("user_id", Profile.getCurrentProfile().getId());
                                                             jsonObjectNewReport.put("title", name);
                                                             jsonObjectNewReport.put("people_needed", 3);
@@ -241,7 +240,7 @@ public class ReportInfoActivity
 
 
         } else if (view.getId() == R.id.btnCreateOnAppEvent) {
-            //Subir la info al servidor
+
         }
         else if(view.getId() == R.id.btnCancelOnAppEvent){
             alertDialog.dismiss();
@@ -376,6 +375,15 @@ public class ReportInfoActivity
             {
                 progressDialog.dismiss();
             }
+
+            JSONObject jsonObjectToUpdate = new JSONObject();
+            try {
+                jsonObjectToUpdate.put("has_event", "true");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new ReportInfoActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/report?id=" +
+                getIntent().getExtras().get("_id"), mapHeaders, jsonObjectToUpdate, "Event").execute();
         }
 
         private String postData() throws IOException, JSONException
@@ -425,6 +433,110 @@ public class ReportInfoActivity
 
 
             return result.toString();
+        }
+    }
+
+    //==================================================================================================================
+    class RESTPutTask extends AsyncTask<String, Void, String>
+    {
+        ProgressDialog progressDialog;
+        private String strURL;
+        private HashMap<String, String> mapHeaders;
+        private JSONObject jsonObject;
+        private String strTaskCode;
+
+        public RESTPutTask (
+                String strURL,
+                HashMap<String, String> mapHeaders,
+                JSONObject jsonObject,
+                String strTaskCode
+        )
+        {
+            this.strURL = strURL;
+            this.mapHeaders = mapHeaders;
+            this.jsonObject = jsonObject;
+            this.strTaskCode = strTaskCode;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            progressDialog = new ProgressDialog(ReportInfoActivity.this);
+            progressDialog.setMessage("Updating data...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params)
+        {
+            try
+            {
+                return putData();
+            }
+            catch (IOException ex)
+            {
+                return "Network error.";
+            }
+            catch (JSONException ex)
+            {
+                return "Invalid data.";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            super.onPostExecute(result);
+
+            if (progressDialog != null)
+            {
+                progressDialog.dismiss();
+            }
+
+
+        }
+
+        private String putData() throws IOException, JSONException
+        {
+            StringBuilder result = new StringBuilder();
+            BufferedWriter bufferedWriter = null;
+
+            try {
+                //Initialize and configure request, then connect to server.
+                URL url = new URL(this.strURL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setReadTimeout(10000);
+                urlConnection.setConnectTimeout(10000);
+                urlConnection.setRequestMethod("PUT");
+                urlConnection.setDoOutput(true); //Enables output (body data)
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.connect();
+
+                //Write data into server.
+                OutputStream outputStream = urlConnection.getOutputStream();
+                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+                bufferedWriter.write(this.jsonObject.toString());
+                bufferedWriter.flush();
+
+                if (urlConnection.getResponseCode() == 200)
+                {
+                    return "Update successfull.";
+                }
+                else
+                {
+                    return "Update failure.";
+                }
+            }
+            finally
+            {
+                if (bufferedWriter != null)
+                {
+                    bufferedWriter.close();
+                }
+            }
+
         }
     }
 }
