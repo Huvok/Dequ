@@ -90,7 +90,8 @@ public class ReportInfoActivity
     Button btnJoinEvent;
     boolean boolHasEvent;
     //Fecha y hora del evento
-    static int year, month, day, hour, minute;
+    //static int year, month, day, hour, minute;
+    static String setEventTitle, setEventDescription, setEventHour, setEventDay, setEventTime;
 
 
     @Override
@@ -240,7 +241,10 @@ public class ReportInfoActivity
 
 
         } else if (view.getId() == R.id.btnCreateOnAppEvent) {
-
+            //Subir la info al servidor
+            setEventDescription = edtxtEventDescription.toString();
+            setEventTitle = edtxtEventTitle.toString();
+            setEventTime = setEventDay + "T" + setEventHour + ":00.000Z";
         }
         else if(view.getId() == R.id.btnCancelOnAppEvent){
             alertDialog.dismiss();
@@ -271,27 +275,39 @@ public class ReportInfoActivity
     //==================================================================================================================
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
+        int hour, minute;
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             hour = 0;
-            int minute = 0;
+            minute = 0;
 
             // Create a new instance of TimePickerDialog and return it
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
         }
 
-        public void onTimeSet(TimePicker view, int hourOfDay, int minut) {
+        public void onTimeSet(TimePicker view, int hour, int minute) {
             // Do something with the time chosen by the user
-            hour = hourOfDay;
-            minute = minut;
-            txtViewHour.setText(String.valueOf(hour) + ":" + String.valueOf(minute));
+            if(hour < 10){
+                setEventHour = "0" + String.valueOf(hour);
+            }
+            else{
+                setEventHour = String.valueOf(hour);
+            }
+            if(minute < 10){
+                setEventHour += ":0" + String.valueOf(minute);
+            }
+            else{
+                setEventHour += ":" + String.valueOf(hour);
+            }
+            txtViewHour.setText(setEventHour);
         }
     }
 
     //==================================================================================================================
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
+        int year, month, day;
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -303,17 +319,23 @@ public class ReportInfoActivity
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
-        public void onDateSet(DatePicker view, int yea, int mont, int da) {
+        public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
-            year = yea;
-            month = mont;
-            day = da;
-            txtViewDate.setText(String.valueOf(day) + "/" + String.valueOf(month) + "/"  + String.valueOf(year) );
+            setEventDay = String.valueOf(year);
+            if(month < 10){
+                setEventDay += "-0" + String.valueOf(month);
+            }
+            else{
+                setEventDay += "-" + String.valueOf(month);
+            }
+            if(day < 10){
+                setEventDay += "-0" + String.valueOf(day);
+            }
+            else{
+                setEventDay += "-" + String.valueOf(day);
+            }
+            txtViewDate.setText(setEventDay);
 
-        }
-
-        public static int getYear(){
-            return year;
         }
     }
 
