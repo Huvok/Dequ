@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="@string/report_title_text"/>
+            android:text="@string/report_title_text"
+            android:textSize="18dp"/>
 
         <EditText
             android:id="@+id/edTxtReportTitle"
@@ -27,7 +28,8 @@
             android:layout_weight=".5"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="@string/report_title_hint"/>
+            android:hint="@string/report_title_hint"
+            android:textSize="18dp"/>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,7 +44,8 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="@string/report_type_text_view"/>
+            android:text="@string/report_type_text_view"
+            android:textSize="18dp"/>
 
         <Spinner
             android:id="@+id/spinnerReportType"
@@ -65,7 +68,8 @@
             android:layout_height="match_parent"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="@string/report_level_text_view"/>
+            android:text="@string/report_level_text_view"
+            android:textSize="18dp"/>
 
         <Spinner
             android:id="@+id/spinnerReportLevel"
@@ -82,7 +86,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_description"
-        android:inputType="textMultiLine"/>
+        android:inputType="textMultiLine"
+        />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="horizontal"

@@ -8,8 +8,7 @@
         <item name="colorAccent">#668cff</item>
     </style>
     <style name="Theme" parent="AlertDialog.AppCompat">
-        <item name="android:windowBackground">@id/txtViewReportInfoName</item>
-        <item name="android:windowBackground"
+
 
     </style>
 

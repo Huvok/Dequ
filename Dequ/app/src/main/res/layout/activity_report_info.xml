@@ -11,123 +11,156 @@
               android:id="@+id/viewMainActivity"
               android:weightSum="1">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  xmlns:tools="http://schemas.android.com/tools"
-                  android:layout_width="match_parent"
-                  android:layout_height="0dp"
-                  android:orientation="vertical"
-                  tools:context="sunfire.dequ.MainActivity"
-                  android:layout_weight=".07"
-                  android:weightSum="1">
+        <TextView
+            android:id="@+id/txtViewReportTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".07"
+            android:ems="10"
+            android:gravity="center"
+            android:text="@string/info_report_title"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".05"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
-            android:id="@+id/txtViewReportInfoName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Event" />
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  xmlns:tools="http://schemas.android.com/tools"
-                  android:layout_width="match_parent"
-                  android:layout_height="0dp"
-                  android:orientation="horizontal"
-                  tools:context="sunfire.dequ.MainActivity"
-                  android:layout_weight="0.05"
-                  android:weightSum="1">
+            android:gravity="center"
+            android:text="Type:"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/txtViewReportInfoType"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight=".5"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Type" />
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        tools:context="sunfire.dequ.MainActivity"
-        android:layout_weight="0.05"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/txtViewReportInfoLevel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Level" />
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        tools:context="sunfire.dequ.MainActivity"
-        android:layout_weight="0.20"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/txtViewReportInfoDescription"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Description" />
+            android:text="@string/info_report_type"
+            android:textSize="22sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_weight=".53">
+        android:layout_height="0dp"
+        android:layout_weight=".05"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-        <ImageView
-            android:id="@+id/imgViewReport"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtViewReportInfoLevelTag"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.40"
-            app:srcCompat="@android:drawable/btn_star" />
+            android:layout_weight="0.5"
+            android:ems="10"
+            android:gravity="center"
+            android:text="Level:"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/txtViewReportInfoLevel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:ems="10"
+            android:textSize="22sp"
+            android:text="@string/info_report_level" />
 
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  xmlns:tools="http://schemas.android.com/tools"
-                  android:layout_width="match_parent"
-                  android:layout_height="0dp"
-                  android:orientation="horizontal"
-                  tools:context="sunfire.dequ.MainActivity"
-                  android:layout_weight=".1"
-                  android:weightSum="1">
+    <TextView
+        android:id="@+id/txtViewReportInfoDescription"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.20"
+        android:ems="10"
+        android:gravity="center"
+        android:text="@string/info_report_description"
+        android:textSize="22sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.50"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_weight=".1">
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgViewReport"
+            android:layout_width="0dp"
+            android:layout_height="279dp"
+            app:srcCompat="@android:drawable/btn_star"
+            android:layout_weight="0.80"/>
+
+        <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".1">
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".15"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        tools:context="sunfire.dequ.MainActivity">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1">
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnCancelFbEvent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:text="@string/btn_cancel_event"/>
+            android:layout_weight=".4"
+            android:text="@string/btn_cancel_event"
+            android:drawableTop="@drawable/ic_cancel_black_24px"/>
 
-        <Button
-            android:id="@+id/btnCreateFbEvent"
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:text="@string/btn_create_event"/>
+            android:layout_weight=".4">
+
+            <Button
+                android:id="@+id/btnCreateFbEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/btn_create_event" />
+
+            <Button
+                android:id="@+id/btnJoinEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/btn_join_event"
+                android:drawableTop="@drawable/ic_group_add_black_24px"/>
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 

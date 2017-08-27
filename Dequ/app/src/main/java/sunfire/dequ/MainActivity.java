@@ -820,10 +820,22 @@ public class MainActivity
                         Double Lng = Double.parseDouble(jsonobject.getString("longitude"));
                         lstHeatMap.add(new WeightedLatLng(new LatLng(Lat, Lng), count));
                         count++;
-                        Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(Lat, Lng)).
-                            title(jsonobject.getString("title")).snippet(jsonobject.getString("type") +
-                            " / " + jsonobject.getString("level")).
-                            icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        Marker marker;
+                        if (jsonobject.getString("has_event").equals("true"))
+                        {
+                            marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(Lat, Lng)).
+                                    title(jsonobject.getString("title")).snippet(jsonobject.getString("type") +
+                                    " / " + jsonobject.getString("level")).
+                                    icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        }
+                        else
+                        {
+                            marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(Lat, Lng)).
+                                    title(jsonobject.getString("title")).snippet(jsonobject.getString("type") +
+                                    " / " + jsonobject.getString("level")).
+                                    icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        }
+
                         marker.setVisible(false);
                         marker.setTag(jsonobject.getString("_id"));
                         lstMarkers.add(marker);
