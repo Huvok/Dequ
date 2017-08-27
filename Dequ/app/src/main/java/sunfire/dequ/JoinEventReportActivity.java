@@ -2,9 +2,12 @@ package sunfire.dequ;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -70,12 +73,16 @@ public class JoinEventReportActivity
     byte[] decodedString;
     Bitmap bitmap;
     Button btnSeeAttendance;
-    AlertDialog alertDialog;
+    View viewReportDialog;
     Button btnCloseAttendance;
     ArrayList<String> lstAttendanceIds = new ArrayList<String>();
     String strEventId;
+    AlertDialog.Builder dialogPlaceReport;
+    AlertDialog alertDialog;
     String strFBId;
     ArrayList<String> lstFBAttendanceIds = new ArrayList<String>();
+    Button btnCancelFb;
+    Button btnAcceptFb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,10 +128,25 @@ public class JoinEventReportActivity
             finish();
         }
         else if(view.getId() == R.id.btnJoinEventJoin){
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put("Content-Type", "application/json");
-            new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
-                getIntent().getExtras().getString("report"), null, map).execute();
+            if(!strFBId.equals("N/A")) {
+                dialogPlaceReport = new AlertDialog.Builder(this);
+
+                viewReportDialog = getLayoutInflater().inflate(R.layout.report_join_event, null);
+                dialogPlaceReport.setView(viewReportDialog).create();
+                alertDialog = dialogPlaceReport.show();
+
+                btnCancelFb = (Button) viewReportDialog.findViewById(R.id.btnCancelJoinFb);
+                btnAcceptFb = (Button) viewReportDialog.findViewById(R.id.btnAcceptJoinFb);
+
+                btnAcceptFb.setOnClickListener(this);
+                btnCancelFb.setOnClickListener(this);
+            }
+            else {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("Content-Type", "application/json");
+                new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
+                        getIntent().getExtras().getString("report"), null, map).execute();
+            }
         }
         else if (view.getId() == R.id.btnSeeAtendance)
         {
@@ -177,6 +199,32 @@ public class JoinEventReportActivity
         {
             alertDialog.dismiss();
         }
+        else if (view.getId() == R.id.btnCancelJoinFb)
+        {
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("Content-Type", "application/json");
+            new JoinEventReportActivity.RESTGetTask("EventByReport", "http://" + getString(R.string.server_url) + "/api/event_by_report?id=" +
+                    getIntent().getExtras().getString("report"), null, map).execute();
+        }
+        else if (view.getId() == R.id.btnAcceptJoinFb)
+        {
+            startActivity(newFacebookIntent(getPackageManager(),
+                    "https://www.facebook.com/events/" + strFBId));
+        }
+    }
+
+    //==================================================================================================================
+    public static Intent newFacebookIntent(PackageManager pm, String url) {
+        Uri uri = Uri.parse(url);
+        try {
+            ApplicationInfo applicationInfo = pm.getApplicationInfo("com.facebook.katana", 0);
+            if (applicationInfo.enabled) {
+                // http://stackoverflow.com/a/24547437/1048340
+                uri = Uri.parse("fb://facewebmodal/f?href=" + url);
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+        return new Intent(Intent.ACTION_VIEW, uri);
     }
 
     //==================================================================================================================
@@ -234,8 +282,6 @@ public class JoinEventReportActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject jsonObjectToUpdate = new JSONObject();
-                    strEventId = jsonObject.getString("_id");
-                    strFBId = jsonObject.getString("FB_id");
                     jsonObjectToUpdate.put("event", jsonObject.getString("_id"));
                     new JoinEventReportActivity.RESTPutTask("http://" + getString(R.string.server_url) + "/api/user/event?id=" +
                             Profile.getCurrentProfile().getId(), mapHeaders, jsonObjectToUpdate, "Event").execute();
@@ -248,7 +294,8 @@ public class JoinEventReportActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray jsonArray = jsonObject.getJSONArray("attending");
-
+                    strEventId = jsonObject.getString("_id");
+                    strFBId = jsonObject.getString("FB_id");
                     for (int i = 0; i < jsonArray.length(); i++)
                     {
                         lstAttendanceIds.add(jsonArray.getString(i));
