@@ -208,7 +208,7 @@ public class ReportInfoActivity
 
                                                         JSONObject jsonObjectNewReport = new JSONObject();
                                                         try {
-                                                            jsonObjectNewReport.put("report", getIntent().getExtras().get("title"));
+                                                            jsonObjectNewReport.put("report", getIntent().getExtras().get("report"));
                                                             jsonObjectNewReport.put("user_id", Profile.getCurrentProfile().getId());
                                                             jsonObjectNewReport.put("title", name);
                                                             jsonObjectNewReport.put("people_needed", 3);
