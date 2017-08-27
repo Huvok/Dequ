@@ -243,7 +243,7 @@ public class MainActivity
 
             HashMap<String, String> map = new HashMap<String, String>();
             map.put("Content-Type", "application/json");
-            new RESTGetTask("User", "http://" + getString(R.string.server_url) + "/api/report?id=" +
+            new RESTGetTask("User", "http://" + getString(R.string.server_url) + "/api/user?id=" +
                 Profile.getCurrentProfile().getId(), null, map).execute();
 
             //                                              //We just have to actively check permissions since
@@ -956,7 +956,7 @@ public class MainActivity
             }
             else if (this.strTaskCode.equals("User"))
             {
-                if(result != null)
+                if (!result.equals("null\n"))
                 {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
@@ -970,9 +970,21 @@ public class MainActivity
                 }
                 else
                 {
-                    txtViewUserName.setText("Ohne" + " " + "Name");
-                    txtViewUserLevelAndExp.setText("Level: " + "0" + "    " +
-                            "0" + " / 100");
+                    HashMap<String, String> mapHeaders = new HashMap<String, String>();
+                    mapHeaders.put("Content-Type", "application/json");
+
+                    JSONObject jsonObjectNewReport = new JSONObject();
+                    try {
+                        jsonObjectNewReport.put("user_id", profile.getId());
+                        jsonObjectNewReport.put("name", profile.getFirstName());
+                        jsonObjectNewReport.put("lastname", profile.getLastName());
+                        jsonObjectNewReport.put("level", 0);
+                        jsonObjectNewReport.put("experience", 0);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    new RESTPostTask("http://" + getString(R.string.server_url) + "/api/users", mapHeaders, jsonObjectNewReport, "User").execute();
                 }
             }
 
