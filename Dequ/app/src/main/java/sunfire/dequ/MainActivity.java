@@ -863,7 +863,16 @@ public class MainActivity
             {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    Intent intent = new Intent(getBaseContext(), ReportInfoActivity.class);
+                    Intent intent;
+                    if (jsonObject.getString("has_event").equals("true"))
+                    {
+                        intent = new Intent(getBaseContext(), JoinEventReportActivity.class);
+                    }
+                    else
+                    {
+                        intent = new Intent(getBaseContext(), ReportInfoActivity.class);
+                    }
+
                     intent.putExtra("report", jsonObject.getString("_id"));
                     intent.putExtra("title", jsonObject.getString("title"));
                     intent.putExtra("type", jsonObject.getString("type"));
