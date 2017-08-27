@@ -232,7 +232,7 @@ public class MainActivity
 
             HashMap<String, String> map = new HashMap<String, String>();
             map.put("Content-Type", "application/json");
-            new RESTGetTask("User", "http://" + getString(R.string.server_url) + "/api/report?id=" +
+            new RESTGetTask("User", "http://" + getString(R.string.server_url) + "/api/user?id=" +
                 Profile.getCurrentProfile().getId(), null, map).execute();
 
             //                                              //We just have to actively check permissions since
@@ -915,7 +915,7 @@ public class MainActivity
             }
             else if (this.strTaskCode.equals("User"))
             {
-                
+
             }
 
             if (progressDialog != null)
