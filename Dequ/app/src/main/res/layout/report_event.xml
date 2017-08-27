@@ -43,6 +43,7 @@
             android:gravity="center"
             android:text="@string/report_event_date_start"
             android:textSize="18sp"/>
+
         <Button
             android:id="@+id/btnDate"
             android:layout_width="0dp"
