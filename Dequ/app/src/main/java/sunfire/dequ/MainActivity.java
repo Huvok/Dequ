@@ -1059,8 +1059,7 @@ public class MainActivity
                 {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
-                        //TODO Quitar parche +1
-                        currentLevel = Integer.parseInt(jsonObject.getString("level")) +1;
+                        currentLevel = Integer.parseInt(jsonObject.getString("level"));
                         progressBarExperience.setMax((currentLevel) * 100);
                         progressBarExperience.setProgress(Integer.parseInt(jsonObject.getString("experience")));
                         txtViewUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
