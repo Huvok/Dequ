@@ -42,6 +42,7 @@
     <string name="info_report_people">People</string>
     <string name="btn_join">Join</string>
     <string name="my_event">My Events</string>
+    <string name="other_event">Other Events</string>
     <string-array name="report_type">
         <item>Garbage</item>
         <item>Nature</item>

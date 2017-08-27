@@ -1,5 +1,6 @@
 package sunfire.dequ;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 
 public class UserProfile
         extends
@@ -31,7 +33,7 @@ public class UserProfile
         txtUserName = (TextView) findViewById(R.id.txtViewUserName);
         txtUserLevel = (TextView) findViewById(R.id.txtViewUserLevel);
         txtUserExp = (TextView) findViewById(R.id.txtViewUserExp);
-        scrollEvents = (ScrollView) findViewById(R.id.scrollViewEvents);
+        scrollEvents = (ScrollView) findViewById(R.id.scrollViewMyEvents);
 
         //Profile.getCurrentProfile()
 
@@ -46,8 +48,19 @@ public class UserProfile
         if(view.getId() == R.id.btnCancelUserProfile){
             finish();
         }
-        else{
-            
+        else if(view.getId() == R.id.btnLogOutUserProfile){
+            LoginManager.getInstance().logOut();
+            subGoToLoginScreen();
         }
+    }
+
+    private void subGoToLoginScreen()
+    {
+        //                                                  //Start login activity making sure that the app sees it like
+        //                                                  //      the first started activity.
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

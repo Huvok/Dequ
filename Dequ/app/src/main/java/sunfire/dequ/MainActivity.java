@@ -191,6 +191,7 @@ public class MainActivity
             ALT_HEATMAP_GRADIENT_START_POINTS);
 
     //Progress
+    int currentLevel;
     int progressCalm = 5;
     int progressMedium = 10;
     int progressImportant = 15;
@@ -557,20 +558,41 @@ public class MainActivity
                     //TODO si sube de nivel
                     if(progressBarExperience.getProgress() + progressCalm <= progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressCalm);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
                 else if(String.valueOf(spinnerReportLevel) == "Medium"){
                     if(progressBarExperience.getProgress() + progressMedium <= progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressMedium);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
                 else if(String.valueOf(spinnerReportLevel) == "Important"){
                     if(progressBarExperience.getProgress() + progressImportant <= progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressImportant);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
                 else{
                     if(progressBarExperience.getProgress() + progressUrgent <= progressBarExperience.getMax())
                         progressBarExperience.incrementProgressBy(progressUrgent);
+                    else{
+                        currentLevel += 1;
+                        progressBarExperience.setProgress(progressBarExperience.getProgress() + progressCalm - progressBarExperience.getMax());
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                    }
                 }
-
+                txtViewUserLevelAndExp.setText("Level: " + String.valueOf(currentLevel) + "    " +
+                        String.valueOf(progressBarExperience.getProgress()) + " / " + String.valueOf(progressBarExperience.getMax()));
             }
         }
         else if (view.getId() == R.id.btnOnOffMarkers)
@@ -969,9 +991,12 @@ public class MainActivity
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         //TODO /100
+                        currentLevel = Integer.parseInt(jsonObject.getString("level"));
+                        progressBarExperience.setMax((currentLevel+1) * 100);
+                        progressBarExperience.setProgress(Integer.parseInt(jsonObject.getString("experience")));
                         txtViewUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
-                        txtViewUserLevelAndExp.setText("Level: " + jsonObject.getString("level") + "    " +
-                            jsonObject.getString("experience") + " / 100");
+                        txtViewUserLevelAndExp.setText("Level: " + String.valueOf(currentLevel) + "    " +
+                            String.valueOf(progressBarExperience.getProgress()) + " / " + String.valueOf(progressBarExperience.getMax()));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -988,6 +1013,9 @@ public class MainActivity
                         jsonObjectNewReport.put("lastname", profile.getLastName());
                         jsonObjectNewReport.put("level", 0);
                         jsonObjectNewReport.put("experience", 0);
+                        progressBarExperience.setMax(100);
+                        progressBarExperience.setProgress(0);
+                        currentLevel = 0;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
