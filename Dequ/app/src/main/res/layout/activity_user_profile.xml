@@ -23,7 +23,7 @@
             android:orientation="vertical"
             tools:context="sunfire.dequ.MainActivity"
             android:weightSum="1"
-            android:background="@color/emeraldColor">
+            android:background="@color/btnColor">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -54,7 +54,8 @@
                     android:text="@string/user_name"
                     android:textSize="30dp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:background="@color/btnColor"/>
 
             </LinearLayout>
 
@@ -73,7 +74,8 @@
         android:textSize="22sp"
         android:text="User Level:"
         android:textColor="@android:color/black"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@color/emeraldColor"/>
     <TextView
         android:id="@+id/txtViewUserLevel"
         android:layout_width="0dp"
@@ -83,7 +85,8 @@
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:background="@color/emeraldColor"/>
 </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,7 +102,8 @@
                 android:textSize="22sp"
                 android:text="User experience:"
                 android:textColor="@android:color/black"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@color/emeraldColor"/>
         <TextView
             android:id="@+id/txtViewUserExp"
             android:layout_width="0dp"
@@ -109,7 +113,8 @@
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:background="@color/emeraldColor"/>
         </LinearLayout>
 
 
@@ -123,7 +128,8 @@
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="18dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:background="@color/emeraldColor"/>
 
 
         <LinearLayout
@@ -143,7 +149,8 @@
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="18dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:background="@color/emeraldColor"/>
 
         <LinearLayout
             android:id="@+id/layoutEvents"
@@ -152,26 +159,42 @@
             android:orientation="vertical">
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="horizontal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight=".03"
-            android:weightSum="1">
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:background="@color/emeraldColor">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:orientation="vertical"
+                android:background="@color/emeraldColor">
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnCancelUserProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:text="@string/cancel_button"/>
+                android:layout_weight="0.40"
+                android:text="@string/cancel_button" />
 
             <Button
                 android:id="@+id/btnLogOutUserProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:text="@string/logout_button"/>
+                android:layout_weight="0.40"
+                android:text="@string/logout_button" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:orientation="vertical"
+                android:background="@color/emeraldColor">
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
