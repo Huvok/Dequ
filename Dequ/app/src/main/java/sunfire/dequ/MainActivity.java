@@ -591,7 +591,9 @@ public class MainActivity
         }
         else if (view.getId() == R.id.btnMyProfile)
         {
-            
+            Intent intent;
+            intent = new Intent(getBaseContext(), UserProfile.class);
+
         }
 
     }
