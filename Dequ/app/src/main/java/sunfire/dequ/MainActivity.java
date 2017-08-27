@@ -195,6 +195,9 @@ public class MainActivity
     int progressImportant = 15;
     int progressUrgent = 20;
 
+    TextView txtViewUserName;
+    TextView txtViewUserLevelAndExp;
+
 
     //------------------------------------------------------------------------------------------------------------------
     //                                                      //METHODS
@@ -264,8 +267,8 @@ public class MainActivity
             imgBtnSettings = (ImageButton) findViewById(R.id.imgBtnSettings);
 
             imgBtnSettings.setOnClickListener(this);
-            TextView txtViewUserName = (TextView) findViewById(R.id.txtViewUserName);
-            TextView txtViewUserLevelAndExp = (TextView) findViewById(R.id.txtViewUserLevelAndExp);
+            txtViewUserName = (TextView) findViewById(R.id.txtViewUserName);
+            txtViewUserLevelAndExp = (TextView) findViewById(R.id.txtViewUserLevelAndExp);
             imgViewPin = (ImageView) findViewById(R.id.imgViewPin);
             imgViewPin.setVisibility(View.INVISIBLE);
             btnReport = (Button) findViewById(R.id.btnReport);
@@ -945,7 +948,24 @@ public class MainActivity
             }
             else if (this.strTaskCode.equals("User"))
             {
-                
+                if(result != null)
+                {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        //TODO /100
+                        txtViewUserName.setText(jsonObject.getString("name") + " " + jsonObject.getString("lastname"));
+                        txtViewUserLevelAndExp.setText("Level: " + jsonObject.getString("level") + "    " +
+                            jsonObject.getString("experience") + " / 100");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    txtViewUserName.setText("Ohne" + " " + "Name");
+                    txtViewUserLevelAndExp.setText("Level: " + "0" + "    " +
+                            "0" + " / 100");
+                }
             }
 
             if (progressDialog != null)
