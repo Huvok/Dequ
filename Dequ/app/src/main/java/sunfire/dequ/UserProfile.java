@@ -172,6 +172,22 @@ public class UserProfile
                                 jsonArray.getString(i), null, map).execute();
                     }
 
+                    while(lstCreatedEvents.size() < jsonObject.getJSONArray("created_events").length() ||
+                            lstEvents.size() < jsonObject.getJSONArray("events").length() )
+                    {
+                        int i = 1;
+                    }
+
+                    for(int i = 0; i < lstCreatedEvents.size(); i++){
+                        lstViewCreatedEvents.add(new TextView(UserProfile.this));
+                        lstViewCreatedEvents.get(i).setText((lstCreatedEvents.get(i).strTitle + "\r\n Created: " +
+                                lstCreatedEvents.get(i).strCreateDate + "\r\n Scheduled: " + lstCreatedEvents.get(i).strDueDate
+                                + "\r\n # People: " + String.valueOf(lstCreatedEvents.get(i).intPeopleCount) + "\r\n People needed: " +
+                                String.valueOf(lstCreatedEvents.get(i).intPeopleNeeded) + "\r\n Description: " +
+                                lstCreatedEvents.get(i).strReport));
+                        scrollMyEvents.addView(lstViewCreatedEvents.get(i));
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
