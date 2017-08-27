@@ -9,6 +9,7 @@
     <string name="profile_picture_content_description">User\'s profile picture</string>
     <string name="user_name">User Name</string>
     <string name="user_level">User Level</string>
+    <string name="user_xp">User Experience</string>
     <string name="events">Events</string>
     <string name="profile">Profile</string>
     <string name="change_language_button">Change Language</string>
@@ -40,6 +41,7 @@
     <string name="info_event_people">People Joined</string>
     <string name="info_report_people">People</string>
     <string name="btn_join">Join</string>
+    <string name="my_event">My Events</string>
     <string-array name="report_type">
         <item>Garbage</item>
         <item>Nature</item>

@@ -147,6 +147,7 @@ public class MainActivity
     Button btnCancelReport;
     Button btnChooseImage;
     Button btnOnOffMarkers;
+    Button btnProfile;
     boolean boolAreMarkersVisible;
     AlertDialog.Builder dialogPlaceReport;
     AlertDialog alertDialog;
@@ -265,25 +266,28 @@ public class MainActivity
             googleApiClient.connect();
 
             imgBtnSettings = (ImageButton) findViewById(R.id.imgBtnSettings);
-
-            imgBtnSettings.setOnClickListener(this);
+            imgViewPin = (ImageView) findViewById(R.id.imgViewPin);
             txtViewUserName = (TextView) findViewById(R.id.txtViewUserName);
             txtViewUserLevelAndExp = (TextView) findViewById(R.id.txtViewUserLevelAndExp);
-            imgViewPin = (ImageView) findViewById(R.id.imgViewPin);
-            imgViewPin.setVisibility(View.INVISIBLE);
             btnReport = (Button) findViewById(R.id.btnReport);
             btnPlaceReport = (Button) findViewById(R.id.btnPlaceReport);
+            btnOnOffMarkers = (Button) findViewById(R.id.btnOnOffMarkers);
+            btnProfile = (Button) findViewById(R.id.btnMyProfile);
+
+            imgBtnSettings.setOnClickListener(this);
             btnPlaceReport.setOnClickListener(this);
             btnReport.setOnClickListener(this);
-            btnPlaceReport.setVisibility(View.INVISIBLE);
-            btnOnOffMarkers = (Button) findViewById(R.id.btnOnOffMarkers);
             btnOnOffMarkers.setOnClickListener(this);
+            btnProfile.setOnClickListener(this);
+
+            imgViewPin.setVisibility(View.INVISIBLE);
+            btnPlaceReport.setVisibility(View.INVISIBLE);
 
             ProfilePictureView profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
             profilePictureView.setProfileId(profile.getId());
 
-            txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
-            txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
+            //txtViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+            //txtViewUserLevelAndExp.setText(txtViewUserLevelAndExp.getText() + ": 0"+ "    " + "0/100");
             boolAreMarkersVisible = false;
 
             //Progress Bar
@@ -584,6 +588,18 @@ public class MainActivity
             }
 
             boolAreMarkersVisible = !boolAreMarkersVisible;
+        }
+        else if (view.getId() == R.id.btnMyProfile)
+        {
+            //TODO pasar datos de json al intent
+            /*JSONObject jsonObject = new JSONObject(result);
+            Intent intent;
+            intent = new Intent(getBaseContext(), UserProfile.class);
+            intent.putExtra("report", jsonObject.getString("_id"));
+            intent.putExtra("title", jsonObject.getString("title"));
+            intent.putExtra("has_event", jsonObject.getString("has_event"));
+
+            startActivity(intent);*/
         }
 
     }
