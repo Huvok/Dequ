@@ -230,6 +230,11 @@ public class MainActivity
                 profile = Profile.getCurrentProfile();
             }
 
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("Content-Type", "application/json");
+            new RESTGetTask("User", "http://" + getString(R.string.server_url) + "/api/report?id=" +
+                Profile.getCurrentProfile().getId(), null, map).execute();
+
             //                                              //We just have to actively check permissions since
             //                                              //      Marshmallow.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -907,6 +912,10 @@ public class MainActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+            else if (this.strTaskCode.equals("User"))
+            {
+                
             }
 
             if (progressDialog != null)
