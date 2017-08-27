@@ -9,8 +9,7 @@
               android:orientation="vertical"
               tools:context="sunfire.dequ.MainActivity"
               android:id="@+id/viewMainActivity"
-              android:weightSum="1"
-              android:background="@color/trythreeColor">
+              android:weightSum="1">
 
         <TextView
             android:id="@+id/txtViewReportTitle"
@@ -22,8 +21,7 @@
             android:text="@string/info_report_title"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:background="@color/tryColor"/>
+            android:textColor="@android:color/black"/>
 
 
     <LinearLayout
@@ -42,8 +40,7 @@
             android:gravity="center"
             android:text="Type:"
             android:textSize="22sp"
-            android:textColor="@android:color/black"
-            android:background="@color/trytwoColor"/>
+            android:textColor="@android:color/black"/>
 
         <TextView
             android:id="@+id/txtViewReportInfoType"
@@ -53,8 +50,7 @@
             android:ems="10"
             android:text="@string/info_report_type"
             android:textSize="22sp"
-            android:textColor="@android:color/black"
-            android:background="@color/trytwoColor"/>
+            android:textColor="@android:color/black"/>
 
     </LinearLayout>
 
@@ -74,8 +70,7 @@
             android:gravity="center"
             android:text="Level:"
             android:textSize="22sp"
-            android:textColor="@android:color/black"
-            android:background="@color/trytwoColor"/>
+            android:textColor="@android:color/black"/>
 
         <TextView
             android:id="@+id/txtViewReportInfoLevel"
@@ -85,8 +80,7 @@
             android:ems="10"
             android:textSize="22sp"
             android:text="@string/info_report_level"
-            android:textColor="@android:color/black"
-            android:background="@color/trytwoColor"/>
+            android:textColor="@android:color/black"/>
     </LinearLayout>
 
     <TextView
@@ -107,12 +101,7 @@
         android:layout_weight="0.50"
         android:weightSum="1">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:orientation="horizontal"
-            android:layout_height="match_parent"
-            android:layout_weight=".1">
-        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/imgViewReport"
@@ -121,11 +110,6 @@
             app:srcCompat="@android:drawable/btn_star"
             android:layout_weight="0.80"/>
 
-        <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight=".1">
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -135,7 +119,6 @@
                   android:layout_width="match_parent"
                   android:layout_height="0dp"
                   android:orientation="horizontal"
-                  tools:context="sunfire.dequ.MainActivity"
                   android:layout_weight=".13"
                   android:weightSum="1">
         <LinearLayout

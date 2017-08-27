@@ -343,7 +343,7 @@ public class MainActivity
                 final Bitmap bmp = (Bitmap) bundle.get("data");
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.JPEG, 30, baos); //bm is the bitmap object
+                bmp.compress(Bitmap.CompressFormat.JPEG, 10, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
                 updateProgress();
@@ -358,7 +358,7 @@ public class MainActivity
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                bmp.compress(Bitmap.CompressFormat.JPEG, 30, baos); //bm is the bitmap object
+                bmp.compress(Bitmap.CompressFormat.JPEG, 10, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
                 updateProgress();
@@ -1041,7 +1041,13 @@ public class MainActivity
                     intent.putExtra("longitude", jsonObject.getString("longitude"));
                     intent.putExtra("has_event", jsonObject.getString("has_event"));
 
-                    startActivity(intent);
+                    try {
+                        startActivity(intent);
+                    }
+                    catch (Exception e)
+                    {
+                        int i = 1;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

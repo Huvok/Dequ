@@ -37,11 +37,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".ReportInfoActivity"></activity>
-        <activity android:name=".JoinEventReportActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".LoginActivity" android:label="LoginActivity"/>
+        <activity android:name=".ReportInfoActivity" android:label="ReportInfoActivity"/>
+        <activity android:name=".JoinEventReportActivity" android:label="JoinEventReportActivity"/>
+        <activity android:name=".MainActivity" android:label="MainActivity"/>
+        <activity android:name=".UserProfile" android:label="UserProfile"/>
     </application>
 
 </manifest>
